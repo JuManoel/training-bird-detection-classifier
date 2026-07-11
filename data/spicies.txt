@@ -1,0 +1,100 @@
+Loro orejiamarillo,Ognorhynchus icterotis
+Barbudito de páramo,Oxypogon stuebelii
+Tororoi chamí,Grallaria alvarezi
+Tororoi de Miller,Grallaria milleri
+Hormiguero de Parker,Cercomacroides parkeri
+Tucán pechigrís,Andigena hypoglauca
+Cacique candela,Hypopyrrhus pyrohypogaster
+Perdiz colorada,Odontophorus hyperythrus
+Carpintero bonito,Melanerpes pulcher
+Habia crestada,Habia cristata
+Gorrión-montés gorgidorado,Atlapetes flaviceps
+Torito capiblanco,Capito hypoleucus
+Chachalaca colombiana,Ortalis columbiana
+Carpinterito punteado,Picumnus granadensis
+Tapaculo de Stiles,Scytalopus stilesi
+Tangara multicolor,Chlorochrysa nitidissima
+Barranquero andino,Momotus aequatorialis
+Quetzal colidorado,Pharomachrus auriceps
+Trogón enmascarado,Trogon personatus
+Tucán andino piquinegro,Andigena nigrirostris
+Periquito paramuno,Leptosittaca branickii
+Loro carirrojo,Hapalopsittaca amazonina
+Perico frentirrojo,Psittacara wagleri
+Pava andina,Penelope montagnii
+Pava maraquera,Chamaepetes goudotii
+Mirla patinaranja,Turdus fuscater
+Mirla negra,Turdus ignobilis
+Copetón,Zonotrichia capensis
+Bichofué,Pitangus sulphuratus
+Sirirí común,Tyrannus melancholicus
+Azulejo común,Thraupis episcopus
+Azulejo palmero,Thraupis palmarum
+Tangara montañera aliazul,Anisognathus somptuosus
+Tangara lacrimosa,Anisognathus lacrymosus
+Tangara ventriescarlata,Anisognathus igniventris
+Tangara pechianteada,Dubusia taeniata
+Tangara capiblanca,Sericossypha albocristata
+Tangara verdepradera,Chlorornis riefferii
+Colibrí gigante andino,Pterophanes cyanopterus
+Rayo de sol brillante,Aglaeactis cupripennis
+Chivito arcoíris,Chalcostigma herrani
+Zamarrito muslinegro,Eriocnemis derbyi
+Inca collarejo,Coeligena torquata
+Inca broncíneo,Coeligena coeligena
+Estrellita alibufa,Coeligena lutetiae
+Colibrí pechipunteado,Adelomyia melanogenys
+Metalura tiria,Metallura tyrianthina
+Metalura verdosa,Metallura williami
+Cola de raqueta coliblanca,Ocreatus underwoodii
+Colibrí piquicuña,Schistes geoffroyi
+Diamante frentiverde,Heliodoxa jacula
+Hada coliblanca,Heliothryx barroti
+Ninfa coroniazul,Thalurania colombica
+Ermitaño coliblanco,Threnetes ruckeri
+Orejivioleta brillante,Colibri coruscans
+Cucarachero común,Troglodytes aedon
+Cucarachero montés pechigrís,Henicorhina leucophrys
+Cucarachero pechibandeado,Pheugopedius fasciatoventris
+Saltador enmascarado,Saltator cinctus
+Saltador listado,Saltator striatipectus
+Urraca pechinegra,Cyanocorax affinis
+Urraca collareja,Cyanolyca armillata
+Trepatroncos fuerte,Xiphocolaptes promeropirhynchus
+Trepatroncos picocuña pardo,Campylorhamphus pusillus
+Carpintero poderoso,Campephilus pollens
+Carpintero carmesí,Colaptes rivolii
+Carpintero lineado,Dryocopus lineatus
+Carpintero bellotero,Melanerpes formicivorus
+Tapaculo ocelado,Acropternis orthonyx
+Tapaculo paramuno,Scytalopus opacus
+Tapaculo de Spillmann,Scytalopus spillmanni
+Hormiguero cabecilistado,Drymophila striaticeps
+Hormiguero pechicastaño,Poliocrania exsul
+Frutero verdinegro,Pipreola riefferii
+Piha parda,Lipaugus fuscocinereus
+Gallito de roca andino,Rupicola peruvianus
+Saltarín cuellidorado,Manacus vitellinus
+Tororoi bicolor,Grallaria rufocinerea
+Tororoi bigotudo,Grallaria alleni
+Tororoi coronicastaño,Grallaria ruficapilla
+Tororoi nuquicastaño,Grallaria nuchalis
+Tororoi coronipizarra,Grallaria guatimalensis
+Tororoi capirotado,Grallaricula cucullata
+Pato de torrente,Merganetta armata
+Caracara carunculado,Phalcoboenus carunculatus
+Cernícalo americano,Falco sparverius
+Gallinazo negro,Coragyps atratus
+Gallinazo aura,Cathartes aura
+Gavilán caminero,Rupornis magnirostris
+Milano coliblanco,Elanus leucurus
+Garza bueyera,Bubulcus ibis
+Garza estriada,Butorides striata
+Tingua azul,Porphyrio martinica
+Tortolita rojiza,Columbina talpacoti
+Paloma collareja,Zenaida auriculata
+Reinita coronirroja,Myioborus ornatus
+Reinita trepadora,Mniotilta varia
+Reinita acuática norteña,Parkesia noveboracensis
+Reinita de Canadá,Cardellina canadensis
+Reinita cerúlea,Setophaga cerulea

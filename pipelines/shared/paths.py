@@ -1,0 +1,104 @@
+"""Canonical project and artifact paths."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from pathlib import Path
+
+
+def get_project_root() -> Path:
+    """Return the repository root (parent of ``pipelines/``)."""
+    return Path(__file__).resolve().parents[2]
+
+
+@dataclass(frozen=True)
+class ProjectPaths:
+    """Filesystem layout shared by every pipeline."""
+
+    root: Path
+
+    @classmethod
+    def from_root(cls, root: Path | None = None) -> ProjectPaths:
+        return cls(root=root or get_project_root())
+
+    @property
+    def data(self) -> Path:
+        return self.root / "data"
+
+    @property
+    def artifacts(self) -> Path:
+        return self.root / "artifacts"
+
+    @property
+    def images_raw(self) -> Path:
+        return self.artifacts / "images" / "raw"
+
+    @property
+    def manifest(self) -> Path:
+        return self.artifacts / "manifest.csv"
+
+    @property
+    def dataset(self) -> Path:
+        return self.artifacts / "dataset"
+
+    @property
+    def dataset_images(self) -> Path:
+        return self.dataset / "images"
+
+    @property
+    def dataset_labels(self) -> Path:
+        return self.dataset / "labels"
+
+    @property
+    def dataset_rejected(self) -> Path:
+        return self.dataset / "rejected"
+
+    @property
+    def data_yaml(self) -> Path:
+        return self.dataset / "data.yaml"
+
+    @property
+    def class_names(self) -> Path:
+        return self.dataset / "classes.txt"
+
+    @property
+    def runs(self) -> Path:
+        return self.artifacts / "runs"
+
+    @property
+    def train_run(self) -> Path:
+        return self.runs / "train"
+
+    @property
+    def best_checkpoint(self) -> Path:
+        return self.train_run / "best.pt"
+
+    @property
+    def predict_out(self) -> Path:
+        return self.runs / "predict"
+
+    @property
+    def default_csv(self) -> Path:
+        matches = sorted(self.data.glob("ML__*_photo_CO-CAL.csv"))
+        if not matches:
+            raise FileNotFoundError(
+                f"No Macaulay CSV found under {self.data} (expected ML__*_photo_CO-CAL.csv)"
+            )
+        return matches[-1]
+
+    @property
+    def species_file(self) -> Path:
+        return self.data / "spicies.txt"
+
+    def ensure_dirs(self) -> None:
+        for path in (
+            self.images_raw,
+            self.dataset_images / "train",
+            self.dataset_images / "val",
+            self.dataset_labels / "train",
+            self.dataset_labels / "val",
+            self.dataset_rejected,
+            self.train_run / "plots",
+            self.predict_out,
+        ):
+            path.mkdir(parents=True, exist_ok=True)
