@@ -31,7 +31,7 @@ uv pip install "dfine @ https://github.com/PogChamper/dfine-cpp/releases/downloa
 # Download ONNX + build a local engine (one-time):
 curl -LO https://github.com/PogChamper/dfine-cpp/releases/download/v0.3.3/dfine_m_slim.onnx
 curl -LO https://github.com/PogChamper/dfine-cpp/releases/download/v0.3.3/dfine_m_slim.json
-dfine build --model m --onnx dfine_m_slim.onnx --output artifacts/dfine_m_slim.engine
+uv run dfine build --model m --onnx dfine_m_slim.onnx --output artifacts/dfine_m_slim.engine
 
 uv run avesia-extract --engine artifacts/dfine_m_slim.engine
 ```
