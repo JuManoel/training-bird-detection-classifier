@@ -1,10 +1,10 @@
 # avesia-yolo
 
-Multi-class bird detection pipelines for Caldas (Colombia) media from the Macaulay Library.
+Multi-class bird detection pipelines for Caldas (Colombia) media from Macaulay Library and iNaturalist.
 
-1. **download** — photos for species in `data/spicies.txt`
+1. **download** — photos for species in `data/spicies.txt` (ML export + `aves_descarga_v2.csv`)
 2. **extract** — bird boxes via dfine-cpp → YOLO labels
-3. **train** — YOLO26 (AdamW, early stop 5% epochs, best by val loss)
+3. **train** — YOLO26x (AdamW, early stop 5% epochs, best by val loss)
 4. **predict** — run `best.pt`
 
 ## Quickstart

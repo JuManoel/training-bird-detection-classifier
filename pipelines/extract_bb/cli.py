@@ -27,8 +27,26 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--threshold", type=float, default=0.4)
     p.add_argument(
         "--keep-all",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Keep all bird boxes (default: true). Use --no-keep-all for highest-score only.",
+    )
+    p.add_argument(
+        "--highest-only",
         action="store_true",
-        help="Keep all bird boxes (default: highest-score only)",
+        help="Alias for --no-keep-all: keep only the highest-scoring bird box",
+    )
+    p.add_argument(
+        "--imgsz",
+        type=int,
+        default=640,
+        help="Max image side written to the dataset (downscale Full HD to model size)",
+    )
+    p.add_argument(
+        "--jpeg-quality",
+        type=int,
+        default=90,
+        help="JPEG quality for resized dataset images (1-95)",
     )
     p.add_argument("--train-ratio", type=float, default=0.8)
     p.add_argument("--seed", type=int, default=42)
@@ -43,7 +61,9 @@ def main(argv: list[str] | None = None) -> None:
         dataset_root=Path(args.dataset),
         engine_path=Path(args.engine),
         threshold=args.threshold,
-        keep_all=args.keep_all,
+        keep_all=args.keep_all and not args.highest_only,
+        imgsz=args.imgsz,
+        jpeg_quality=args.jpeg_quality,
         train_ratio=args.train_ratio,
         seed=args.seed,
     )

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from pathlib import Path
 
 from pipelines.download_data.application import run_download
 from pipelines.download_data.domain import DownloadConfig
@@ -11,8 +12,19 @@ from pipelines.shared.paths import ProjectPaths
 
 def build_parser() -> argparse.ArgumentParser:
     paths = ProjectPaths.from_root()
-    p = argparse.ArgumentParser(description="Download Macaulay Library photos for target species")
-    p.add_argument("--csv", type=str, default=str(paths.default_csv), help="Macaulay export CSV")
+    p = argparse.ArgumentParser(
+        description="Download bird photos (Macaulay export and/or aves_descarga CSV)"
+    )
+    p.add_argument(
+        "--csv",
+        type=str,
+        action="append",
+        default=None,
+        help=(
+            "Media CSV path (repeatable). "
+            "Default: Macaulay export + data/aves_descarga_v2.csv"
+        ),
+    )
     p.add_argument(
         "--species",
         type=str,
@@ -34,11 +46,15 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> None:
+    paths = ProjectPaths.from_root()
     args = build_parser().parse_args(argv)
-    from pathlib import Path
-
+    csv_paths = (
+        tuple(Path(p) for p in args.csv)
+        if args.csv
+        else (paths.default_csv, paths.default_download_csv)
+    )
     config = DownloadConfig(
-        csv_path=Path(args.csv),
+        csv_paths=csv_paths,
         species_path=Path(args.species),
         output_dir=Path(args.out),
         manifest_path=Path(args.manifest),

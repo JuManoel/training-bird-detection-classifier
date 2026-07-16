@@ -2,9 +2,12 @@
 
 ## Sources
 
-- **Species list:** [`data/spicies.txt`](../data/spicies.txt) — `common_name,scientific_name` (100 target species).
+- **Species list:** [`data/spicies.txt`](../data/spicies.txt) — `common_name,scientific_name` (~938 target species: original 100 plus species from the download CSV).
 - **Macaulay export:** [`data/ML__*_photo_CO-CAL.csv`](../data/) — photo metadata for Caldas, Colombia (`regionCode=CO-CAL`). Export from [Macaulay Library search](https://search.macaulaylibrary.org/catalog?regionCode=CO-CAL&view=list).
-- **Download CDN:** `https://cdn.download.ams.birds.cornell.edu/api/v1/asset/{ML_Catalog_Number}/`
+- **Unified download CSV:** [`data/aves_descarga_v2.csv`](../data/aves_descarga_v2.csv) — `asset_id,nombre_cientifico,nombre_comun,species_code,url,fuente` (Macaulay + iNaturalist; iNaturalist rows include a direct `url`).
+- **Download CDN (Macaulay):** `https://cdn.download.ams.birds.cornell.edu/api/v1/asset/{ML_Catalog_Number}/`
+
+`avesia-download` loads both CSVs by default, filters by `spicies.txt`, and dedupes by asset/catalog id. When a species appears in both datasets, images from both sources are kept.
 
 Respect [Macaulay Library media use guidelines](https://support.ebird.org/en/support/solutions/articles/48001064551-using-and-requesting-media) for academic/non-commercial research.
 
@@ -12,10 +15,10 @@ Respect [Macaulay Library media use guidelines](https://support.ebird.org/en/sup
 
 ```
 artifacts/
-  images/raw/{Scientific_Name}/{catalog_id}.jpg
+  images/raw/{Scientific_Name}/{catalog_id}.jpg   # originals (Full HD / source resolution)
   manifest.csv
   dataset/
-    images/{train,val}/
+    images/{train,val}/   # full frames downscaled so max(side) <= imgsz (default 640)
     labels/{train,val}/
     rejected/
     classes.txt
@@ -24,11 +27,15 @@ artifacts/
   runs/predict/
 ```
 
+Raw downloads stay at source resolution. `avesia-extract` detects boxes on the original, then writes **resized** JPEG full frames into the YOLO dataset (proportional downscale, no upscale) so training matches production cameras (Full HD → model input). By default **all** COCO `bird` boxes are kept (multi-bird scenes); use `--highest-only` for a single box.
+
 ## Pipeline
 
 ```bash
 uv run avesia-download
-# filters CSV by spicies.txt and writes artifacts/manifest.csv
-```
+# filters default CSVs by spicies.txt and writes artifacts/manifest.csv
+# override sources: uv run avesia-download --csv path/a.csv --csv path/b.csv
 
-Of the ~10k CSV rows, expect ~3.2k photos overlapping the species list (~87 of 100 species present in the export).
+uv run avesia-extract --engine artifacts/dfine_m_slim.engine
+# optional: --imgsz 640 --jpeg-quality 90 --highest-only
+```

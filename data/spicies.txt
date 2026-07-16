@@ -98,3 +98,841 @@ Reinita trepadora,Mniotilta varia
 Reinita acuática norteña,Parkesia noveboracensis
 Reinita de Canadá,Cardellina canadensis
 Reinita cerúlea,Setophaga cerulea
+Pava Aburria,Aburria aburri
+Gavilán Americano,Accipiter striatus
+Gavilán Americano (pechiblanco),Accipiter striatus chionogaster
+Andarríos Maculado,Actitis macularius
+Garza Agamí,Agamia agami
+Silfo Celeste,Aglaiocercus coelestis
+Silfo de King,Aglaiocercus kingii
+Ganso del Nilo,Alopochen aegyptiaca
+Amazilia Tzacatl,Amazilia tzacatl
+Amazilia Tzacatl (grupo tzacatl),Amazilia tzacatl [tzacatl Group]
+Amazona Alinaranja,Amazona amazonica
+Amazona Frentirroja,Amazona autumnalis
+Amazona Frentirroja (Frentirroja),Amazona autumnalis autumnalis
+Amazona Harinosa,Amazona farinosa
+Amazona Harinosa (Sureña),Amazona farinosa farinosa
+Amazona Real,Amazona ochrocephala
+Chingolo Pajonalero,Ammodramus humeralis
+Chingolo Saltamontes,Ammodramus savannarum
+Frutero Escamoso,Ampelioides tschudii
+Cotinga Crestirrojo,Ampelion rubrocristatus
+Ticotico Montano,Anabacerthia striaticollis
+Ticotico de Anteojos,Anabacerthia variegaticeps
+Ticotico de Anteojos (temporalis),Anabacerthia variegaticeps temporalis
+Cachudito Piquinegro,Anairetes parulus
+Chorlitejo de Azara,Anarhynchus collaris
+Ánade Rabudo,Anas acuta
+Cerceta Andina,Anas andium
+Ánade Maicero,Anas georgica
+Ánade Azulón,Anas platyrhynchos
+Ánade Azulón (variedad doméstica),Anas platyrhynchos (Domestic type)
+Chajá Añuma,Anhima cornuta
+Anhinga Americana,Anhinga anhinga
+Tangara Aliazul (grupo somptuosus),Anisognathus somptuosus [somptuosus Group]
+Ánsar Común,Anser anser
+Ánsar Común (variedad doméstica),Anser anser (Domestic type)
+Ánsar Común (europeo),Anser anser anser
+Mango Gorjinegro,Anthracothorax nigricollis
+Chotacabras de Carolina,Antrostomus carolinensis
+Guacamayo Azuliamarillo,Ara ararauna
+Guacamayo Aliverde,Ara chloropterus
+Guacamayo Macao,Ara macao
+Guacamayo Severo,Ara severus
+Cotara Chiricote,Aramides cajaneus
+Carrao,Aramus guarauna
+Garceta Grande,Ardea alba
+Garceta Grande (euroasiática),Ardea alba alba
+Garceta Grande (americana),Ardea alba egretta
+Garceta Grande (australiana),Ardea alba modesta
+Garza Cuca,Ardea cocoi
+Garza Azulada,Ardea herodias
+Garza Azulada (grupo herodias),Ardea herodias [herodias Group]
+Garza Azulada (occidentalis),Ardea herodias occidentalis
+Garcilla Bueyera Occidental,Ardea ibis
+Cerquero Picofino,Arremon assimilis
+Cerquero Cabecinegro,Arremon atricapillus
+Cerquero Piquinaranja,Arremon aurantiirostris
+Cerquero Piquinaranja (grupo aurantiirostris),Arremon aurantiirostris [aurantiirostris Group]
+Cerquero Coronicastaño,Arremon brunneinucha
+Cerquero Coronicastaño (grupo brunneinucha),Arremon brunneinucha [brunneinucha Group]
+Cerquero Negrilistado,Arremonops conirostris
+Viudita Cabeciblanca,Arundinicola leucocephala
+Semillero Fuliginoso,Asemospiza fuliginosa
+Semillero Oscuro,Asemospiza obscura
+Búho Gritón,Asio clamator
+Búho Campestre,Asio flammeus
+Búho Campestre (Antillas),Asio flammeus domingensis/portoricensis
+Búho Campestre (Norteño),Asio flammeus flammeus
+Búho Campestre (Galápagos),Asio flammeus galapagoensis
+Búho Negruzco,Asio stygius
+Gavilán Bicolor,Astur bicolor
+Atlapetes Nuquiblanco,Atlapetes albinucha
+Atlapetes Pechiamarillo,Atlapetes latinuchus
+Atlapetes Nuquipálido,Atlapetes pallidinucha
+Atlapetes Pizarroso,Atlapetes schistaceus
+Golondrina Fajiblanca,Atticora fasciata
+Golondrina Patiblanca,Atticora tibialis
+Atila Polimorfo,Attila spadiceus
+Tucanete Gorjiblanco,Aulacorhynchus albivitta
+Tucanete Culirrojo,Aulacorhynchus haematopygus
+Ticotico Listado Occidental,Automolus virgatus
+Porrón Bola,Aythya affinis
+Porrón Acollarado,Aythya collaris
+Correlimos Batitú,Bartramia longicauda
+Momoto Yeruvá Occidental,Baryphthengus martii
+Reinita Coroniestriada,Basileuterus culicivorus
+Reinita Coroniestriada (Ventriblanca),Basileuterus culicivorus hypoleucus
+Reinita Coronicastaña,Basileuterus delattrii
+Reinita Cabecilistada,Basileuterus tristriatus
+Reinita Cabecilistada (daedalus),Basileuterus tristriatus daedalus
+Colibrí Colihabano,Boissonneaua flavescens
+Colibrí Sietecolores,Boissonneaua jardini
+Avetorillo Americano,Botaurus exilis
+Catita Churica,Brotogeris jugularis
+Búho Americano,Bubo virginianus
+Busardo Colorado,Busarellus nigricollis
+Busardo Aura,Buteo albonotatus
+Busardo Colicorto,Buteo brachyurus
+Busardo Gris Meridional,Buteo nitidus
+Busardo Aliancho,Buteo platypterus
+Busardo Aliancho (platypterus),Buteo platypterus platypterus
+Busardo Chapulinero,Buteo swainsoni
+Busardo Negro,Buteogallus anthracinus
+Busardo Negro (grupo subtilis),Buteogallus anthracinus [subtilis Group]
+Busardo Negro (anthracinus/utilensis),Buteogallus anthracinus anthracinus
+Busardo Sabanero,Buteogallus meridionalis
+Busardo Urubitinga,Buteogallus urubitinga
+Busardo Urubitinga (urubitinga),Buteogallus urubitinga urubitinga
+Tangara Montana,Buthraupis montana
+Garcilla Verde,Butorides virescens
+Cacique Lomiamarillo,Cacicus cela
+Cacique Lomiamarillo (Coliamarillo),Cacicus cela cela
+Cacique Montano,Cacicus chrysonotus
+Cacique Lomiescarlata,Cacicus uropygialis
+Cacique Lomiescarlata (Subtropical),Cacicus uropygialis uropygialis
+Pato Criollo,Cairina moschata
+Pato Criollo (variedad doméstica),Cairina moschata (Domestic type)
+Pato Criollo x Ánade Azulón (híbrido),Cairina moschata x Anas platyrhynchos
+Correlimos de Baird,Calidris bairdii
+Correlimos Culiblanco,Calidris fuscicollis
+Correlimos Zancolín,Calidris himantopus
+Correlimos Pectoral,Calidris melanotos
+Correlimos Menudillo,Calidris minutilla
+Correlimos Semipalmeado,Calidris pusilla
+Correlimos Canelo,Calidris subruficollis
+Picamaderos Barbinegro,Campephilus melanoleucos
+Mosquerito Silbón,Camptostoma obsoletum
+Mosquerito Silbón (Sureño),Camptostoma obsoletum [obsoletum Group]
+Mosquerito Silbón (Peruano),Camptostoma obsoletum [sclateri Group]
+Picoguadaña Piquirrojo,Campylorhamphus trochilirostris
+Cucarachero Cabeciblanco,Campylorhynchus albobrunneus
+Cucarachero Currucuchú,Campylorhynchus griseus
+Cucarachero Barrado,Campylorhynchus zonatus
+Cucarachero Pechihabano,Cantorchilus leucotis
+Cucarachero Cabecinegro,Cantorchilus nigricapillus
+Mosquerito Amarillo,Capsiempis flaveola
+Caracara Carancho,Caracara plancus
+Caracara Carancho (norteño),Caracara plancus cheriway
+Caracara Carancho (sureño),Caracara plancus plancus
+Reinita de Wilson,Cardellina pusilla
+Reinita de Wilson (chryseola),Cardellina pusilla chryseola
+Reinita de Wilson (Occidental),Cardellina pusilla pileolata
+Semillero Colifajado,Catamenia analis
+Semillero Sencillo,Catamenia inornata
+Aura Gallipavo (grupo Aura),Cathartes aura [aura Group]
+Aura Gallipavo (ruficollis),Cathartes aura ruficollis
+Aura Sabanera,Cathartes burrovianus
+Zorzalito Piquigualdo,Catharus aurantiirostris
+Zorzalito Piquigualdo (grupo melpomene),Catharus aurantiirostris [melpomene Group]
+Zorzalito Sombrío,Catharus fuscater
+Zorzalito Carigrís,Catharus minimus
+Zorzalito de Swainson,Catharus ustulatus
+Zorzalito de Swainson (grupo swainsoni),Catharus ustulatus [swainsoni Group]
+Zorzalito de Swainson (grupo ustulatus),Catharus ustulatus [ustulatus Group]
+Saltarín Cabecidorado,Ceratopipra erythrocephala
+Saltarín Cabecirrojo Norteño,Ceratopipra mentalis
+Hormiguero Tirano,Cercomacroides tyrannina
+Curutié Colorado,Certhiaxis cinnamomeus
+Colibrí de Heliodoro,Chaetocercus heliodor
+Colibrí de Mulsant,Chaetocercus mulsant
+Vencejo Rabón,Chaetura brachyura
+Vencejo de Chimenea,Chaetura pelagica
+Tangara Nuquirrufa,Chalcothraupis ruficervix
+Tangara Nuquirrufa (Nuquirrufa),Chalcothraupis ruficervix [ruficervix Group]
+Colibrí de Buffon,Chalybura buffonii
+Colibrí Patirrojo,Chalybura urochrysia
+Chorlitejo Semipalmeado,Charadrius semipalmatus
+Chajá Chicagüire,Chauna chavaria
+Colibrí de Julia,Chlorestes julie
+Martín Pescador Enano,Chloroceryle aenea
+Martín Pescador Amazónico,Chloroceryle amazona
+Martín Pescador Verde,Chloroceryle americana
+Tangara Verde,Chlorochrysa phoenicotis
+Mielerito Verde,Chlorophanes spiza
+Clorofonia Nuquiazul,Chlorophonia cyanea
+Eufonia Culidorada,Chlorophonia cyanocephala
+Clorofonia Acollarada,Chlorophonia flavirostris
+Clorofonia Pechicastaña,Chlorophonia pyrrhophrys
+Clorospingo Gorjigrís,Chlorospingus canigularis
+Clorospingo Gorjiamarillo,Chlorospingus flavigularis
+Clorospingo Gorjiamarillo (Sudamérica),Chlorospingus flavigularis flavigularis/marginatus
+Clorospingo Común,Chlorospingus flavopectus
+Clorospingo Oscuro,Chlorospingus semifuscus
+Clorospingo Oscuro (Norteño),Chlorospingus semifuscus livingstoni
+Esmeralda Occidental,Chlorostilbon melanorhynchus
+Tangara Olivácea,Chlorothraupis olivacea
+Milano Picogarfio,Chondrohierax uncinatus
+Añapero Garrapena,Chordeiles acutipennis
+Añapero Yanqui,Chordeiles minor
+Colibrí Rubí,Chrysolampis mosquitus
+Varillero Capuchino,Chrysomus icterocephalus
+Colibrí de Goudot,Chrysuronia goudoti
+Amazilia Cabeciazul,Chrysuronia grayi
+Remolinera Común Septentrional,Cinclodes albidiventris
+Remolinera Ecuatoriana,Cinclodes excelsior
+Mirlo Acuático Coroniblanco,Cinclus leucocephalus
+Cucarachero Sepia,Cinnycerthia olivascens
+Aguilucho de Azara,Circus buffoni
+Tortolita Azulada,Claravis pretiosa
+Tangara Piquirrubia,Cnemoscopus rubrirostris
+Mosquero Parduzco,Cnemotriccus fuscatus
+Mosquero Parduzco (grupo fuscatus),Cnemotriccus fuscatus [fuscatus Group]
+Cuclillo Enano,Coccycua pumila
+Cuclillo Piquigualdo,Coccyzus americanus
+Cuclillo Piquinegro,Coccyzus erythropthalmus
+Cuclillo Canela,Coccyzus melacoryphus
+Martinete Cucharón,Cochlearius cochlearius
+Inca Acollarado (grupo torquata),Coeligena torquata [torquata Group]
+Platanero,Coereba flaveola
+Platanero (Puerto Rico),Coereba flaveola [portoricensis Group]
+Platanero (Bahamas),Coereba flaveola bahamensis
+Carpintero Moteado,Colaptes punctigula
+Carpintero Candela (Común),Colaptes rivolii [rivolii Group]
+Carpintero Oliváceo,Colaptes rubiginosus
+Carpintero Oliváceo (Capirrojo),Colaptes rubiginosus rubripileus
+Colibrí Verdemar Menor,Colibri cyanotus
+Colibrí Verdemar Menor (andino),Colibri cyanotus cyanotus/crissalis
+Colibrí Pardo,Colibri delphinae
+Colín Crestudo,Colinus cristatus
+Mosquero Colilargo,Colonia colonus
+Paloma Bravía,Columba livia
+Paloma Bravía (variedad doméstica),Columba livia (Feral Pigeon)
+Paloma Bravía (silvestre),Columba livia (Wild type)
+Columbina Menuda,Columbina minuta
+Columbina Común,Columbina passerina
+Tortolita Escamosa,Columbina squammata
+Conirrostro Coronado,Conirostrum albifrons
+Bienteveo Cejiamarillo,Conopias cinchoneti
+Pibí Tropical Norteño,Contopus bogotensis
+Pibí Boreal,Contopus cooperi
+Pibí Ahumado,Contopus fumigatus
+Pibí Occidental,Contopus sordidulus
+Pibí Oriental,Contopus virens
+Saltarín Gorjiblanco Occidental,Corapipo leucorrhoa
+Cotinga Azul,Cotinga nattererii
+Curutié Carirrojo,Cranioleuca erythrops
+Tangara Crestirrufa,Creurgops verticalis
+Garrapatero Aní,Crotophaga ani
+Garrapatero Mayor,Crotophaga major
+Garrapatero Asurcado,Crotophaga sulcirostris
+Tinamú Chico,Crypturellus soui
+Mielerito Cerúleo,Cyanerpes caeruleus
+Mielerito Patirrojo,Cyanerpes cyaneus
+Chara Verde,Cyanocorax yncas
+Chara Verde (grupo luxuosus),Cyanocorax yncas [luxuosus Group]
+Picogrueso de Brisson,Cyanoloxia brissonii
+Picogrueso Negriazul,Cyanoloxia cyanoides
+Vireón Cejirrufo,Cyclarhis gujanensis
+Vireón Piquinegro,Cyclarhis nigrirostris
+Cisne Negro,Cygnus atratus
+Vencejo Negro,Cypseloides niger
+Dacnis Azul,Dacnis cayana
+Dacnis Egregio,Dacnis egregia
+Caracara Carunculado,Daptrius carunculatus
+Caracara Chimachima,Daptrius chimachima
+Trepatroncos Fuliginoso,Dendrocincla fuliginosa
+Trepatroncos Fuliginoso (grupo meruloides),Dendrocincla fuliginosa [meruloides Group]
+Trepatroncos Tiranino,Dendrocincla tyrannina
+Trepatroncos Variable,Dendrocolaptes picumnus
+Trepatroncos Barrado Norteño,Dendrocolaptes sanctithomae
+Suirirí Piquirrojo,Dendrocygna autumnalis
+Suirirí Piquirrojo (Norteño),Dendrocygna autumnalis fulgens
+Suirirí Bicolor,Dendrocygna bicolor
+Suirirí Cariblanco,Dendrocygna viduata
+Ticotico Ocráceo Grande,Dendroma rufa
+Trepatroncos Piquirrecto,Dendroplex picus
+Pinchaflor Flanquiblanco,Diglossa albilatera
+Pinchaflor Azulado,Diglossa caerulescens
+Pinchaflor Enmascarado,Diglossa cyanea
+Pinchaflor Enmascarado (grupo cyanea),Diglossa cyanea [cyanea Group]
+Pinchaflor Negro,Diglossa humeralis
+Pinchaflor Satinado,Diglossa lafresnayii
+Pinchaflor Ferrugíneo,Diglossa sittoides
+Rabudito Verde,Discosura conversii
+Tordo Charlatán,Dolichonyx oryzivorus
+Angú,Donacobius atricapilla
+Colibrí Picolanza Mayor,Doryfera ludovicae
+Habia Copetona,Driophlox cristata
+Pájaro Gato Gris,Dumetella carolinensis
+Batarito Cabecigrís,Dysithamnus mentalis
+Garceta Azul,Egretta caerulea
+Garceta Nívea,Egretta thula
+Garceta Tricolor,Egretta tricolor
+Fiofío Belicoso,Elaenia chiriquensis
+Fiofío Ventriamarillo,Elaenia flavogaster
+Fiofío Montano,Elaenia frantzii
+Fiofío de Pallatanga,Elaenia pallatangae
+Fiofío Piquicorto,Elaenia parvirostris
+Elanio Tijereta,Elanoides forficatus
+Momoto Picoancho,Electron platyrhynchum
+Coludo Colicuña,Emberizoides herbicola
+Mosquero Alisero,Empidonax alnorum
+Mosquero Saucero,Empidonax traillii
+Mosquero Verdoso,Empidonax virescens
+Tuquito Gris,Empidonomus aurantioatrocristatus
+Colibrí Picoespada,Ensifera ensifera
+Solitario Negro,Entomodestes coracinus
+Hormiguerito Leonado,Epinecrophylla fulviventris
+Calzadito Cobrizo,Eriocnemis cupreoventris
+Calzadito Reluciente,Eriocnemis vestita
+Cabezón Cabecirrojo,Eubucco bourcierii
+Tangara Cabecigrís,Eucometis penicillata
+Corocoro Blanco,Eudocimus albus
+Eufonia Piquigruesa,Euphonia laniirostris
+Eufonia Culiblanca,Euphonia minuta
+Eufonia Ventrinaranja,Euphonia xanthogaster
+Aratinga Pertinaz,Eupsittula pertinax
+Tiranuelo Copetón,Euscarthmus meloryphus
+Picohoz Coliverde,Eutoxeres aquila
+Esmerejón,Falco columbarius
+Esmerejón (de la taiga),Falco columbarius columbarius
+Halcón Pechirrojo,Falco deiroleucus
+Halcón Aleto,Falco femoralis
+Halcón Peregrino,Falco peregrinus
+Halcón Peregrino (Euroasiático),Falco peregrinus [peregrinus Group]
+Halcón Peregrino (Norteamericano),Falco peregrinus anatum
+Halcón Peregrino (de la Tundra),Falco peregrinus calidus/tundrius
+Halcón Peregrino (Australiano),Falco peregrinus macropus
+Halcón Peregrino (Indio),Falco peregrinus peregrinator
+Halcón Murcielaguero,Falco rufigularis
+Cernícalo Americano (Sudamérica),Falco sparverius [cinnamominus Group]
+Cernícalo Americano (Norteño),Falco sparverius [sparverius Group]
+Cernícalo Americano (Caribe Oriental),Falco sparverius caribaearum
+Cernícalo Americano (Cuba),Falco sparverius sparverioides
+Colibrí Nuquiblanco,Florisuga mellivora
+Viudita Pía,Fluvicola pica
+Hormiguerito Coicorita Norteño,Formicivora intermedia
+Cotorrita de Anteojos,Forpus conspicillatus
+Focha Americana,Fulica americana
+Focha Americana (Frentirroja),Fulica americana (Red-shielded)
+Hornero del Caribe,Furnarius longirostris
+Jacamará Colirrufo,Galbula ruficauda
+Jacamará Colirrufo (melanogenia),Galbula ruficauda melanogenia
+Jacamará Colirrufo (rufoviridis/heterogyna),Galbula ruficauda rufoviridis/heterogyna
+Agachadiza de Wilson,Gallinago delicata
+Gallineta Americana,Gallinula galeata
+Gallineta Americana (grupo galeata),Gallinula galeata [galeata Group]
+Gallineta Americana (garmani),Gallinula galeata garmani
+Gallineta Americana (sandvicensis),Gallinula galeata sandvicensis
+Gallo Bankiva,Gallus gallus
+Gallo Bankiva (variedad doméstica),Gallus gallus (Domestic type)
+Elanio Enano,Gampsonyx swainsonii
+Yal Plomizo,Geospizopsis unicolor
+Yal Plomizo (norteño),Geospizopsis unicolor nivaria/geospizopsis
+Reinita Plañidera,Geothlypis philadelphia
+Mascarita Coronioliva,Geothlypis semiflava
+Paloma Perdiz Común,Geotrygon montana
+Paloma Perdiz Común (montana),Geotrygon montana montana
+Busardo Coliblanco,Geranoaetus albicaudatus
+Águila Mora,Geranoaetus melanoleucus
+Busardo Dorsirrojo,Geranoaetus polyosoma
+Busardo Dorsirrojo (forma de la Puna),Geranoaetus polyosoma (Puna)
+Azor Zancón,Geranospiza caerulescens
+Azor Zancón (gracilis/flexipes),Geranospiza caerulescens gracilis/flexipes
+Ermitaño Hirsuto,Glaucis hirsutus
+Trepatroncos Picocuña,Glyphorynchus spirurus
+Tororoí Pechiamarillo,Grallaria flavotincta
+Tororoí Leonado Occidental,Grallaria quitensis
+Ponchito Medialuna,Grallaricula lineifrons
+Hormiguero Calvo,Gymnocichla nudiceps
+Chango Oriolino,Gymnomystax mexicanus
+Hormiguero Bicolor,Gymnopithys bicolor
+Habia Coronirroja,Habia rubica
+Habia Coronirroja (Roja),Habia rubica rubica/bahiae
+Hormiguero Inmaculado,Hafferia immaculata
+Lorito de Fuertes,Hapalopsittaca fuertesi
+Calzadito Verdoso Norteño,Haplophaedia aureliae
+Yal Pizarroso,Haplospiza rustica
+Milano Bidentado,Harpagus bidentatus
+Colibrí Turmalina,Heliangelus exortis
+Caracolero Plomizo,Helicolestes hamatus
+Brillante Emperador,Heliodoxa imperatrix
+Brillante Pechigamuza,Heliodoxa rubinoides
+Colibrí Piquilargo,Heliomaster longirostris
+Avesol Americano,Heliornis fulica
+Pijuí Paramero,Hellmayrea gularis
+Tangara Gorjigualda,Hemithraupis flavicollis
+Tangara Guirá,Hemithraupis guira
+Titirijí Perlado,Hemitriccus margaritaceiventer
+Cucarachero Pechigrís (brunneiceps),Henicorhina leucophrys brunneiceps
+Cucarachero Pechiblanco,Henicorhina leucosticta
+Halcón Reidor,Herpetotheres cachinnans
+Alcaraván Venezolano,Hesperoburhinus bistriatus
+Cigüeñuela Cuellinegra,Himantopus mexicanus
+Cigüeñuela Cuellinegra (Hawaiana),Himantopus mexicanus knudseni
+Cigüeñuela Cuellinegra (Americana),Himantopus mexicanus melanurus
+Cigüeñuela Cuellinegra (cuellinegra),Himantopus mexicanus mexicanus
+Birro Roquero,Hirundinea ferruginea
+Golondrina Común,Hirundo rustica
+Golondrina Común (americana),Hirundo rustica erythrogaster
+Golondrina Común (Oriental),Hirundo rustica gutturalis/mandschurica
+Golondrina Común (Euroasiática),Hirundo rustica rustica
+Momoto Enano,Hylomanes momotula
+Buco Bobito,Hypnelus ruficollis
+Caracara Gorjirrojo,Ibycter americanus
+Turpial Coroninaranja,Icterus auricapillus
+Turpial Dorsidorado,Icterus chrysater
+Turpial de Baltimore,Icterus galbula
+Turpial Venezolano,Icterus icterus
+Turpial Coliamarillo,Icterus mesomelas
+Turpial Amarillo,Icterus nigrogularis
+Turpial Castaño,Icterus spurius
+Elanio del Misisipi,Ictinia mississippiensis
+Elanio Plomizo,Ictinia plumbea
+Tangara Coronidorada,Iridosornis rufivertex
+Tangara Pintoja,Ixothraupis guttata
+Jacana Sudamericana,Jacana jacana
+Hemispingo Capirotado,Kleinothraupis atropileus
+Hemispingo Capirotado (Cejiblanco),Kleinothraupis atropileus auricularis
+Colibrí Aterciopelado,Lafresnaya lafresnayi
+Polluela Carrasqueadora,Laterallus albigularis
+Polluela Burrito,Laterallus melanophaius
+Mosquero Pirata,Legatus leucophaius
+Reinita de Tennessee,Leiothlypis peregrina
+Loica Pechirroja,Leistes militaris
+Trepatroncos Montano,Lepidocolaptes lacrymiger
+Trepatroncos Cabecirrayado,Lepidocolaptes souleyetii
+Saltarín Aterciopelado,Lepidothrix velutina
+Tijeral Andino,Leptasthenura andicola
+Milano Cabecigrís,Leptodon cayanensis
+Orejero Coronipardo,Leptopogon amaurocephalus
+Orejero Coronigrís,Leptopogon superciliaris
+Orejero Coronigrís (Transandino),Leptopogon superciliaris transandinus
+Paloma Montaraz Pechigrís,Leptotila cassinii
+Paloma Montaraz de Tolima,Leptotila conoveri
+Paloma Montaraz Común,Leptotila verreauxi
+Paloma Montaraz Común (grupo brasiliensis),Leptotila verreauxi [brasiliensis Group]
+Colibrí Colilargo Menor,Lesbia nuna
+Carpintero Ahumado,Leuconotopicus fumigatus
+Gaviota Guanaguanare,Leucophaeus atricilla
+Agujeta Gris,Limnodromus griseus
+Agujeta Gris (caurinus),Limnodromus griseus caurinus
+Agujeta Gris (griseus),Limnodromus griseus griseus
+Agujeta Escolopácea,Limnodromus scolopaceus
+Guardabosques Rojizo,Lipaugus unirufus
+Riachuelero,Lochmias nematura
+Capuchino Castaño,Lonchura atricapilla
+Capuchino Tricolor,Lonchura malacca
+Capuchino Tricolor (forma de Flancos Canela),Lonchura malacca (Cinnamon-flanked)
+Búho Corniblanco,Lophostrix cristata
+Cimerillo Andino,Lophotriccus pileatus
+Tangara Luctuosa,Loriotus luctuosus
+Tangara Luctuosa (Común),Loriotus luctuosus [luctuosus Group]
+Añapero Colicorto,Lurocalis semitorquatus
+Saltarín Rayado Occidental,Machaeropterus striolatus
+Picabuey,Machetornis rixosa
+Buco Bigotudo,Malacoptila mystacalis
+Buco Barbón,Malacoptila panamensis
+Saltarín Barbiblanco,Manacus manacus
+Silbón Americano,Mareca americana
+Subepalo Perlado,Margarornis squamiger
+Piojito Gargantilla,Mecocerculus leucophrys
+Piojito Coliblanco,Mecocerculus poecilocercus
+Piojito Alifranjeado,Mecocerculus stictopterus
+Martín Gigante Neotropical,Megaceryle torquata
+Bienteveo Pitanguá,Megarynchus pitangua
+Bienteveo Pitanguá (pitangua),Megarynchus pitangua pitangua
+Autillo Chóliba,Megascops choliba
+Autillo Pálido (Colombiano),Megascops ingens colombianus
+Carpintero Bellotero (grupo formicivorus),Melanerpes formicivorus [formicivorus Group]
+Carpintero Centroamericano,Melanerpes pucherani
+Carpintero Coronirrojo,Melanerpes rubricapillus
+Semillero Bicolor,Melanospiza bicolor
+Ibis Verde,Mesembrinibis cayennensis
+Metalura Tiria (districta),Metallura tyrianthina districta
+Halcón Montés Agavilanado,Micrastur ruficollis
+Halcón Montés Collarejo,Micrastur semitorquatus
+Soterillo Caricastaño,Microbates cinereiventris
+Cucarachero Ruiseñor Sureño,Microcerculus marginatus
+Hormiguerito del Quijos,Microrhopias quixensis
+Gavilancito Americano,Microspizias superciliosus
+Sinsonte Tropical,Mimus gilvus
+Sinsonte Tropical (Sureño),Mimus gilvus [gilvus Group]
+Sinsonte Tropical (Norteño),Mimus gilvus gracilis/leucophaeus
+Mosquero Aceitunado,Mionectes oleagineus
+Mosquero Gorjiestriado,Mionectes striaticollis
+Tangara Carinegruzca,Mitrospingus cassinii
+Tordo Renegrido,Molothrus bonariensis
+Tordo Gigante,Molothrus oryzivorus
+Momoto Rojizo,Momotus subrufescens
+Arpía Menor,Morphnus guianensis
+Dormilona Gris,Muscisaxicola alpinus
+Solitario Andino,Myadestes ralloides
+Solitario Andino (plumbeiceps),Myadestes ralloides plumbeiceps
+Tántalo Americano,Mycteria americana
+Copetón Montañero,Myiarchus cephalotes
+Copetón Viajero,Myiarchus crinitus
+Copetón Panameño,Myiarchus panamensis
+Copetón Capirotado,Myiarchus tuberculifer
+Copetón Capirotado (lawrenceii),Myiarchus tuberculifer [lawrenceii Group]
+Copetón Capirotado (nigriceps/atriceps),Myiarchus tuberculifer nigriceps/atriceps
+Copetón Tiranillo,Myiarchus tyrannulus
+Copetón Tiranillo (magister),Myiarchus tyrannulus magister
+Moscareta Colinegra,Myiobius atricaudus
+Moscareta Vellosa,Myiobius villosus
+Candelita de Anteojos,Myioborus melanocephalus
+Candelita Plomiza,Myioborus miniatus
+Candelita Adornada (Frentigualda),Myioborus ornatus chrysops
+Bienteveo Ventridorado,Myiodynastes hemichrysus
+Bienteveo Ventriazufrado,Myiodynastes luteiventris
+Bienteveo Rayado,Myiodynastes maculatus
+Bienteveo Rayado (Septentrional),Myiodynastes maculatus [maculatus Group]
+Fiofío Selvático,Myiopagis gaimardii
+Fiofío Verdoso,Myiopagis viridicata
+Fiofío Verdoso (grupo viridicata),Myiopagis viridicata [viridicata Group]
+Mosquero Estriado,Myiophobus fasciatus
+Mosquero Amarillo,Myiophobus flavicans
+Mosqueta Capirotada,Myiornis atricapillus
+Birro Ahumado,Myiotheretes fumigatus
+Reinita Coronirroja,Myiothlypis coronata
+Reinita Culiparda,Myiothlypis fulvicauda
+Reinita Crestinegra,Myiothlypis nigrocristata
+Mosquerito Adornado,Myiotriccus ornatus
+Mosquerito Adornado (Occidental),Myiotriccus ornatus ornatus/stellatus
+Bienteveo Alicastaño,Myiozetetes cayanensis
+Bienteveo Cabecigrís,Myiozetetes granadensis
+Bienteveo Sociable,Myiozetetes similis
+Bienteveo Sociable (grupo similis),Myiozetetes similis [similis Group]
+Hormiguerito Flanquialbo,Myrmotherula axillaris
+Hormiguerito Pizarroso,Myrmotherula schisticolor
+Cormorán Biguá,Nannopterum brasilianum
+Malvasía Enmascarada,Nomonyx dominicus
+Buco Picogordo Occidental,Notharchus hyperrhynchus
+Buco Pechinegro,Notharchus pectoralis
+Buco Pío,Notharchus tectus
+Zarapito Trinador Americano,Numenius hudsonicus
+Pintada Común,Numida meleagris
+Pintada Común (variedad doméstica),Numida meleagris (Domestic type)
+Martinete Coronado,Nyctanassa violacea
+Martinete Coronado (grupo violacea),Nyctanassa violacea [violacea Group]
+Martinete Coronado (pauper),Nyctanassa violacea pauper
+Nictibio Grande,Nyctibius grandis
+Nictibio Urutaú,Nyctibius griseus
+Martinete Común,Nycticorax nycticorax
+Martinete Común (americano),Nycticorax nycticorax hoactli
+Martinete Común (euroasiático),Nycticorax nycticorax nycticorax
+Martinete Común (Oscuro),Nycticorax nycticorax obscurus
+Chotacabras Pauraque,Nyctidromus albicollis
+Pitajo Ventricastaño,Ochthoeca cinnamomeiventris
+Pitajo Dorsipardo,Ochthoeca fumicolor
+Pitajo Pechirrufo,Ochthoeca rufipectoralis
+Corcovado Común,Odontophorus gujanensis
+Mosquero Real Amazónico,Onychorhynchus coronatus
+Mosquero Real Amazónico (norteño),Onychorhynchus coronatus mexicanus/fraterculus
+Colibrí Picolezna,Opisthoprora euryptera
+Ganso del Orinoco,Oressochen jubatus
+Golondrina Ventriparda,Orochelidon murina
+Malvasía Andina,Oxyura ferruginea
+Anambé Canelo,Pachyramphus cinnamomeus
+Anambé Aliblanco,Pachyramphus polychopterus
+Anambé Cinéreo,Pachyramphus rufus
+Anambé Barrado,Pachyramphus versicolor
+Verdillo Menor,Pachysylvia decurtata
+Capuchino Arrocero de Java,Padda oryzivora
+Águila Pescadora,Pandion haliaetus
+Águila Pescadora (americana),Pandion haliaetus carolinensis
+Águila Pescadora (australiana),Pandion haliaetus cristatus
+Águila Pescadora (Euroasiática),Pandion haliaetus haliaetus
+Vencejo Tijereta Chico,Panyptila cayennensis
+Busardo Culiblanco,Parabuteo leucorrhous
+Busardo Mixto,Parabuteo unicinctus
+Busardo Mixto (unicinctus),Parabuteo unicinctus unicinctus
+Rascón Negruzco,Pardirallus nigricans
+Azulillo Grande,Passerina caerulea
+Paloma Colorada,Patagioenas cayennensis
+Paloma Torcaza,Patagioenas fasciata
+Paloma Plomiza,Patagioenas plumbea
+Paloma Escamosa,Patagioenas speciosa
+Paloma Vinosa,Patagioenas subvinacea
+Pavo Real Común,Pavo cristatus
+Pavo Real Común (variedad doméstica),Pavo cristatus (Domestic type)
+Pelícano Pardo,Pelecanus occidentalis
+Pelícano Pardo (California),Pelecanus occidentalis californicus
+Pelícano Pardo (Atlántico),Pelecanus occidentalis carolinensis
+Pelícano Pardo (Galápagos),Pelecanus occidentalis urinator
+Pava Cojolita,Penelope purpurascens
+Golondrina Risquera,Petrochelidon pyrrhonota
+Golondrina Risquera (grupo pyrrhonota),Petrochelidon pyrrhonota [pyrrhonota Group]
+Ermitaño Ventripálido,Phaethornis anthophilus
+Ermitaño Verde,Phaethornis guy
+Ermitaño Piquilargo,Phaethornis longirostris
+Ermitaño Gorjiestriado,Phaethornis striigularis
+Charrán Picudo,Phaetusa simplex
+Falaropo Tricolor,Phalaropus tricolor
+Picogrueso Dorsinegro,Pheucticus aureoventris
+Picogrueso Dorsinegro (Culiamarillo),Pheucticus aureoventris uropygialis/terminalis
+Picogrueso Pechirrosado,Pheucticus ludovicianus
+Cucarachero Cabecigrís,Pheugopedius spadix
+Colibrí de Mitchell,Philodice mitchellii
+Bienteveo Chico,Philohydor lictor
+Ibis Afeitado,Phimosus infuscatus
+Flamenco Rojo,Phoenicopterus ruber
+Mosquerito Cabecigrís,Phyllomyias griseiceps
+Cuco Ardilla Común,Piaya cayana
+Carpintero Verdiamarillo,Piculus chrysochloros
+Carpintero Verdiamarillo (chrysochloros),Piculus chrysochloros chrysochloros
+Garza Capirotada,Pilherodius pileatus
+Loro Alibronceado,Pionus chalcopterus
+Loro Cabeciazul,Pionus menstruus
+Loro Cabeciazul (Cabeciazul),Pionus menstruus menstruus/rubrigularis
+Loro Tumultuoso,Pionus tumultuosus
+Tangara de Antifaz,Pipraeidea melanonota
+Frutero Barrado,Pipreola arcuata
+Frutero Verdinegro (grupo riefferii),Pipreola riefferii [riefferii Group]
+Piranga Bermeja,Piranga flava
+Piranga Bermeja (de Tierras Altas),Piranga flava [lutea Group]
+Piranga Aliblanca,Piranga leucoptera
+Piranga Escarlata,Piranga olivacea
+Piranga Roja,Piranga rubra
+Espátula Rosada,Platalea ajaja
+Picoplano Bigotudo,Platyrinchus mystaceus
+Morito Común,Plegadis falcinellus
+Chorlito Dorado Americano,Pluvialis dominica
+Zampullín Picogrueso,Podilymbus podiceps
+Titirijí Capirrufo,Poecilotriccus ruficeps
+Orejerito Jaspeado,Pogonotriccus ophthalmicus
+Perlita Cejiancha,Polioptila bilineata
+Perlita Tropical,Polioptila plumbea
+Amazilia Amable,Polyerata amabilis
+Polluela Sora,Porzana carolina
+Subepalo Moteado,Premnoplex brunnescens
+Golondrina Pechigrís,Progne chalybea
+Golondrina Purpúrea,Progne subis
+Golondrina Purpúrea (hesperia),Progne subis hesperia
+Golondrina Parda,Progne tapera
+Reinita Protonotaria,Protonotaria citrea
+Cacique Dorsirrufo,Psarocolius angustifrons
+Cacique Crestado,Psarocolius decumanus
+Cacique Cabecicastaño,Psarocolius wagleri
+Busardo Blanco,Pseudastur albicollis
+Trepamusgos Barbablanca Andino,Pseudocolaptes boissonneautii
+Trepamusgos Barbablanca del Pacífico,Pseudocolaptes johnsoni
+Tiranuelo Cabecirrojo,Pseudotriccus ruficeps
+Arasarí Culirrojo,Pteroglossus erythropygius
+Arasarí Culirrojo (Piquipálido),Pteroglossus erythropygius erythropygius
+Arasarí Culirrojo (Sanguíneo),Pteroglossus erythropygius sanguineus
+Arasarí Acollarado,Pteroglossus torquatus
+Lechuzón de Anteojos,Pulsatrix perspicillata
+Golondrina Barranquera,Pygochelidon cyanoleuca
+Golondrina Barranquera (Norteña),Pygochelidon cyanoleuca cyanoleuca
+Mosquero Cardenal,Pyrocephalus rubinus
+Mosquero Cardenal (grupo mexicanus),Pyrocephalus rubinus [mexicanus Group]
+Mosquero Cardenal (grupo obscurus),Pyrocephalus rubinus [obscurus Group]
+Yacutoro,Pyroderus scutatus
+Birro Chico,Pyrrhomyias cinnamomeus
+Birro Chico (cinnamomeus/pyrrhopterus),Pyrrhomyias cinnamomeus cinnamomeus/pyrrhopterus
+Cotinga Quérula,Querula purpurata
+Zanate Caribeño,Quiscalus lugubris
+Zanate Mexicano,Quiscalus mexicanus
+Zanate Mexicano (grupo mexicanus),Quiscalus mexicanus [mexicanus Group]
+Tucán Pechigualdo,Ramphastos ambiguus
+Tucán Piquiverde,Ramphastos sulfuratus
+Tucán Vitelino,Ramphastos vitellinus
+Tucán Vitelino (ariel),Ramphastos vitellinus ariel
+Soterillo Picudo,Ramphocaenus melanurus
+Tangara Dorsirroja,Ramphocelus dimidiatus
+Tangara Flamígera,Ramphocelus flammigerus
+Tangara Flamígera (culigualda),Ramphocelus flammigerus icteronotus
+Picoplano Cabezón,Ramphotrigon megacephalum
+Tangara Rosada,Rhodinocichla rosea
+Picoplano Equinoccial,Rhynchocyclus aequinoctialis
+Avión Zapador,Riparia riparia
+Caracolero Común,Rostrhamus sociabilis
+Busardo Caminero (grupo magnirostris),Rupornis magnirostris [magnirostris Group]
+Busardo Caminero (grupo pucherani),Rupornis magnirostris [pucherani Group]
+Rayador Americano,Rynchops niger
+Rayador Americano (cinerascens),Rynchops niger cinerascens
+Rayador Americano (intercedens),Rynchops niger intercedens
+Batará Crestinegro,Sakesphorus canadensis
+Pepitero Alinegro,Saltator atripennis
+Pepitero Gorjicanelo,Saltator maximus
+Pepitero Grisáceo del Caribe,Saltator olivascens
+Zopilote Rey,Sarcoramphus papa
+Pato Crestudo Americano,Sarkidiornis sylvicola
+Amazilia Verdiazul,Saucerottia saucerottei
+Mosquero Negro,Sayornis nigricans
+Tangara Carinegra,Schistochlamys melanopis
+Churrín Negruzco,Scytalopus latrans
+Piojito Guardarríos,Serpophaga cinerea
+Reinita Amarilla,Setophaga aestiva
+Reinita Castaña,Setophaga castanea
+Reinita Gorjinaranja,Setophaga fusca
+Reinita de Pensilvania,Setophaga pensylvanica
+Parula Pitiayumí,Setophaga pitiayumi
+Parula Pitiayumí (Sudamericana),Setophaga pitiayumi [pitiayumi Group]
+Candelita Norteña,Setophaga ruticilla
+Reinita Estriada,Setophaga striata
+Reinita Atigrada,Setophaga tigrina
+Reinita Dorsiverde,Setophaga virens
+Chirigüe Azafranado,Sicalis flaveola
+Chirigüe Sabanero,Sicalis luteola
+Pitajo Diademado,Silvicultrix diadema
+Trepatroncos Oliváceo,Sittasomus griseicapillus
+Trepatroncos Oliváceo (grupo griseicapillus),Sittasomus griseicapillus [griseicapillus Group]
+Cuchara Común,Spatula clypeata
+Cerceta Colorada,Spatula cyanoptera
+Cerceta Aliazul,Spatula discors
+Chupasavia Norteño,Sphyrapicus varius
+Jilguero Encapuchado,Spinus magellanicus
+Jilguero Menor,Spinus psaltria
+Arrocero,Spiza americana
+Águila Poma,Spizaetus isidori
+Águila Blanquinegra,Spizaetus melanoleucus
+Águila Galana,Spizaetus ornatus
+Águila Negra,Spizaetus tyrannus
+Tangara Coroniazul,Sporathraupis cyanocephala
+Semillero Curió,Sporophila angolensis
+Semillero Piquigrande,Sporophila crassirostris
+Semillero Piquigrueso,Sporophila funerea
+Semillero Intermedio,Sporophila intermedia
+Semillero Overo,Sporophila lineola
+Semillero Negriblanco,Sporophila luctuosa
+Semillero Pechirrufo,Sporophila minuta
+Semillero Ventriamarillo,Sporophila nigricollis
+Semillero Plomizo,Sporophila plumbea
+Guácharo,Steatornis caripensis
+Golondrina Gorjirrufa,Stelgidopteryx ruficollis
+Charrán Sudamericano,Sterna hirundinacea
+Charrancito Amazónico,Sternula superciliaris
+Tangara Cabeciazul,Stilpnia cyanicollis
+Tangara Coroninegra,Stilpnia heinei
+Tangara Cabecidorada,Stilpnia larvata
+Tangara Matorralera,Stilpnia vitriolina
+Tórtola Rosigrís,Streptopelia roseogrisea
+Vencejo Cuellirrojo,Streptoprocne rutila
+Vencejo Acollarado,Streptoprocne zonaris
+Cárabo Blanquinegro,Strix nigrolineata
+Cárabo Café,Strix virgata
+Cárabo Café (grupo virgata),Strix virgata [virgata Group]
+Pradero Oriental,Sturnella magna
+Pradero Oriental (grupo magna),Sturnella magna [magna Group]
+Mosquero Matorralero Norteño,Sublegatus arenarum
+Pijuí Pechiblanco,Synallaxis albescens
+Pijuí de Azara,Synallaxis azarae
+Pijuí Pizarroso,Synallaxis brachyura
+Ticotico Rayado,Syndactyla subalaris
+Garza Chiflona,Syrigma sibilatrix
+Chotacabras Ñañarca Grande,Systellura longirostris
+Zampullín Macacito,Tachybaptus dominicus
+Golondrina Aliblanca,Tachycineta albiventer
+Tangara de Delattre,Tachyphonus delatrii
+Tangara Negra,Tachyphonus rufus
+Diamante Cebra,Taeniopygia guttata
+Diamante Cebra (australiano),Taeniopygia guttata castanotis
+Tangara Dorada,Tangara arthus
+Tangara Dorada (Pechidorada),Tangara arthus [aurulenta Group]
+Tangara Florida,Tangara florida
+Tangara Cabecibaya,Tangara gyrola
+Tangara Cabecibaya (Pechiazul),Tangara gyrola [albertinae Group]
+Tangara Goliplateada,Tangara icterocephala
+Tangara Cenicienta,Tangara inornata
+Tangara Verdinegra,Tangara labradorides
+Tangara de Lentejuelas,Tangara nigroviridis
+Tangara Carafuego,Tangara parzudakii
+Tangara Carafuego (Carigualda),Tangara parzudakii lunigera
+Tangara Azulinegra,Tangara vassorii
+Tangara Coronigualda,Tangara xanthocephala
+Cuclillo Crespín,Tapera naevia
+Batará Mayor,Taraba major
+Mosquerito Colirrojo,Terenotriccus erythrurus
+Tangara Golondrina,Tersina viridis
+Charrán Real Americano,Thalasseus maximus
+Zafiro Coronado (grupo fannyae),Thalurania colombica [fannyae Group]
+Batará Pizarroso Occidental,Thamnophilus atrinucha
+Batará Barrado,Thamnophilus doliatus
+Batará Barrado (grupo doliatus),Thamnophilus doliatus [doliatus Group]
+Bandurria Común,Theristicus caudatus
+Hemispingo Cejudo,Thlypopsis superciliaris
+Hemispingo Cejudo (del Urubamba),Thlypopsis superciliaris urubambae
+Tangara Azuleja (grupo cana),Thraupis episcopus [cana Group]
+Trepamusgos Listado,Thripadectes holostictus
+Trepamusgos Cabecirrayado,Thripadectes virgaticeps
+Cucarachero Rufiblanco,Thryophilus rufalbus
+Semillero Tomeguín,Tiaris olivaceus
+Avetigre Oscura,Tigrisoma fasciatum
+Avetigre Colorada,Tigrisoma lineatum
+Tinamú Oliváceo,Tinamus major
+Titira Piquinegro,Tityra inquisitor
+Titira Enmascarado,Tityra semifasciata
+Titirijí Común,Todirostrum cinereum
+Titirijí Cabecinegro,Todirostrum nigriceps
+Picoplano Sulfuroso,Tolmomyias sulphurescens
+Archibebe Patigualdo Chico,Tringa flavipes
+Archibebe Patigualdo Grande,Tringa melanoleuca
+Andarríos Solitario,Tringa solitaria
+Chochín Criollo Sureño,Troglodytes musculus
+Chochín Criollo Sureño (grupo intermedius),Troglodytes musculus [intermedius Group]
+Chochín Montañés,Troglodytes solstitialis
+Trogón Caribeño,Trogon caligatus
+Trogón Coliblanco,Trogon chionurus
+Trogón Acollarado,Trogon collaris
+Trogón Acollarado (Aurantiiventris/Underwoodi),Trogon collaris aurantiiventris/underwoodi
+Trogón Coliazul,Trogon comptus
+Trogón Colinegro Común,Trogon melanurus
+Mirlo Azulado,Turdus flavipes
+Zorzal Ventricastaño,Turdus fulviventris
+Zorzal Pardo,Turdus grayi
+Zorzal Sabiá,Turdus leucomelas
+Mirlo Serrano,Turdus serranus
+Mosquerito Culirrufo,Tyranniscus uropygialis
+Mosquerito Coronado,Tyrannulus elatus
+Tirano Dominicano,Tyrannus dominicensis
+Tirano Melancólico (Sudamericano),Tyrannus melancholicus melancholicus/despotes
+Tijereta Sabanera,Tyrannus savana
+Tijereta Sabanera (monachus),Tyrannus savana monachus
+Tirano Oriental,Tyrannus tyrannus
+Lechuza Común Americana,Tyto furcata
+Lechuza Común Americana (Galápagos),Tyto furcata punctatissima
+Amazilia Andina,Uranomitra franciae
+Colibrí de Bouguer Occidental,Urochroa bougueri
+Cachudito Ágil,Uromyias agilis
+Chotacabras Lira,Uropsalis lyra
+Colibrí Puntiblanco Occidental,Urosticte benjamini
+Avefría Tero,Vanellus chilensis
+Avefría Tero (cayennensis),Vanellus chilensis cayennensis
+Avefría Tero (lampronotus),Vanellus chilensis lampronotus
+Avefría Andina,Vanellus resplendens
+Carpintero Culirrojo,Veniliornis kirkii
+Reinita Alidorada,Vermivora chrysoptera
+Vireo Chiví,Vireo chivi
+Vireo Gorjiamarillo,Vireo flavifrons
+Vireo Verdiamarillo,Vireo flavoviridis
+Vireo Coronipardo,Vireo leucophrys
+Vireo Ojirrojo,Vireo olivaceus
+Vireón Coronigrís,Vireolanius leucotis
+Semillero Volatinero,Volatinia jacarina
+Cóndor Andino,Vultur gryphus
+Picolezna Liso Mexicano,Xenops mexicanus
+Picolezna Rojizo,Xenops rutilans
+Trepatroncos Picofuerte (grupo emigrans),Xiphocolaptes promeropirhynchus [emigrans Group]
+Trepatroncos Picofuerte (grupo promeropirhynchus),Xiphocolaptes promeropirhynchus [promeropirhynchus Group]
+Trepatroncos Manchado,Xiphorhynchus erythropygius
+Trepatroncos Manchado (Sureño),Xiphorhynchus erythropygius [aequatorialis Group]
+Trepatroncos Pinto,Xiphorhynchus lachrymosus
+Trepatroncos Cacao,Xiphorhynchus susurrans
+Trepatroncos Dorsioliva,Xiphorhynchus triangularis
+Paloma Perdiz Gorjiblanca,Zentrygon frenata
+Mosquerito Caridorado,Zimmerius chrysops
+Chingolo Común (grupo capensis),Zonotrichia capensis [capensis Group]

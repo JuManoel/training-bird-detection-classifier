@@ -23,7 +23,9 @@ class ExtractConfig:
     dataset_root: Path
     engine_path: Path
     threshold: float = 0.4
-    keep_all: bool = False
+    keep_all: bool = True
+    imgsz: int = 640
+    jpeg_quality: int = 90
     train_ratio: float = 0.8
     seed: int = 42
     bird_class_names: tuple[str, ...] = ("bird",)

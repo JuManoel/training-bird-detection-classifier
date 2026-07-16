@@ -5,11 +5,12 @@ from __future__ import annotations
 import shutil
 from pathlib import Path
 
+from PIL import Image
 from tqdm import tqdm
 
 from pipelines.extract_bb.domain import ExtractConfig
 from pipelines.extract_bb.infrastructure import DfineBirdDetector
-from pipelines.shared.csv_manifest import read_manifest
+from pipelines.shared.csv_manifest import ManifestEntry, read_manifest
 from pipelines.shared.logging_utils import setup_logging
 from pipelines.shared.species import load_species_list
 from pipelines.shared.split import stratified_split
@@ -31,6 +32,20 @@ def _link_or_copy(src: Path, dst: Path) -> None:
         dst.symlink_to(src.resolve())
     except OSError:
         shutil.copy2(src, dst)
+
+
+def _write_resized(src: Path, dst: Path, imgsz: int, quality: int) -> None:
+    """Write a full-frame image scaled so max(side) <= imgsz (no upscale)."""
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    with Image.open(src) as im:
+        im = im.convert("RGB")
+        w, h = im.size
+        longest = max(w, h)
+        if longest > imgsz:
+            scale = imgsz / float(longest)
+            new_size = (max(1, round(w * scale)), max(1, round(h * scale)))
+            im = im.resize(new_size, Image.Resampling.LANCZOS)
+        im.save(dst, format="JPEG", quality=quality, optimize=True)
 
 
 def run_extract(config: ExtractConfig) -> dict[str, int]:
@@ -78,13 +93,8 @@ def run_extract(config: ExtractConfig) -> dict[str, int]:
                 boxes = [max(boxes, key=lambda b: b.score)]
 
             stem = entry.catalog_id
-            stage_img = (
-                config.dataset_root
-                / "_stage"
-                / "images"
-                / f"{stem}{src.suffix.lower() or '.jpg'}"
-            )
-            _link_or_copy(src, stage_img)
+            stage_img = config.dataset_root / "_stage" / "images" / f"{stem}.jpg"
+            _write_resized(src, stage_img, config.imgsz, config.jpeg_quality)
             staged.append((entry, stage_img, [(b, w, h) for b in boxes]))
 
     if not staged:
@@ -117,7 +127,11 @@ def run_extract(config: ExtractConfig) -> dict[str, int]:
         for img_path in paths:
             stem = img_path.stem
             lbl = config.dataset_root / "_stage" / "labels" / f"{stem}.txt"
-            _link_or_copy(img_path, images_root / split_name / img_path.name)
+            dst_img = images_root / split_name / img_path.name
+            dst_img.parent.mkdir(parents=True, exist_ok=True)
+            if dst_img.exists():
+                dst_img.unlink()
+            shutil.copy2(img_path, dst_img)
             shutil.copy2(lbl, labels_root / split_name / f"{stem}.txt")
 
     place("train", split.train)

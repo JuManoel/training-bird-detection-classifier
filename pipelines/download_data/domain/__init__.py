@@ -10,7 +10,7 @@ from pipelines.shared.csv_manifest import MediaRecord
 
 @dataclass(frozen=True)
 class DownloadConfig:
-    csv_path: Path
+    csv_paths: tuple[Path, ...]
     species_path: Path
     output_dir: Path
     manifest_path: Path

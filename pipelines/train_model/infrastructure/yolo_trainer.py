@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import gc
 import json
 import os
 import shutil
@@ -20,6 +21,18 @@ from pipelines.shared.split import early_stop_patience
 from pipelines.train_model.domain import TrainConfig
 
 logger = setup_logging(name="avesia.train")
+
+
+def _release_cuda_memory() -> None:
+    """Drop Python refs and free cached CUDA allocations."""
+    gc.collect()
+    try:
+        import torch
+
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+    except ImportError:
+        pass
 
 
 def _configure_ultralytics_env() -> None:
@@ -191,7 +204,7 @@ def evaluate_classification(
                 if line.strip():
                     gt.append(_yolo_label_to_xyxy(line, w, h))
 
-        results = model.predict(source=str(img_path), conf=conf, verbose=False)
+        results = model.predict(source=str(img_path), conf=conf, verbose=False, stream=False)
         preds: list[tuple[int, float, float, float, float, float]] = []
         if results:
             r0 = results[0]
@@ -201,6 +214,7 @@ def evaluate_classification(
                     score = float(box.conf.item())
                     x1, y1, x2, y2 = (float(v) for v in box.xyxy[0].tolist())
                     preds.append((cls_id, score, x1, y1, x2, y2))
+        del results
 
         yt, yp = match_detections_to_gt(gt, preds, iou_threshold=iou_match)
         y_true_all.extend(yt)
@@ -235,11 +249,18 @@ def run_train(config: TrainConfig) -> Path:
     config.output_dir.mkdir(parents=True, exist_ok=True)
     patience = early_stop_patience(config.epochs, fraction=0.05)
     logger.info(
-        "Training %s for %d epochs | optimizer=%s | patience=%d (5%% of epochs)",
+        "Training %s for %d epochs | optimizer=%s | patience=%d | "
+        "batch=%s workers=%d amp=%s cache=%s mosaic=%s close_mosaic=%d",
         config.model_name,
         config.epochs,
         config.optimizer,
         patience,
+        config.batch,
+        config.workers,
+        config.amp,
+        config.cache,
+        config.mosaic,
+        config.close_mosaic,
     )
 
     model = YOLO(config.model_name)
@@ -263,6 +284,11 @@ def run_train(config: TrainConfig) -> Path:
         "exist_ok": True,
         "save": True,
         "plots": True,
+        "workers": config.workers,
+        "amp": config.amp,
+        "cache": config.cache,
+        "mosaic": config.mosaic,
+        "close_mosaic": config.close_mosaic,
     }
     if config.device:
         train_kwargs["device"] = config.device
@@ -290,12 +316,29 @@ def run_train(config: TrainConfig) -> Path:
         best,
     )
 
-    eval_model = YOLO(str(best)) if best.exists() else model
-    evaluate_classification(
-        eval_model,
-        config.data_yaml,
-        config.output_dir,
-        conf=config.conf,
-        iou_match=config.iou_match,
-    )
+    # Free training model before loading best.pt for classification eval
+    del model
+    _release_cuda_memory()
+
+    if config.skip_cls_eval:
+        logger.info("Skipping classification eval (--skip-cls-eval)")
+        return best
+
+    if not best.exists():
+        logger.warning("best.pt missing; skipping classification eval")
+        return best
+
+    eval_model = YOLO(str(best))
+    try:
+        evaluate_classification(
+            eval_model,
+            config.data_yaml,
+            config.output_dir,
+            conf=config.conf,
+            iou_match=config.iou_match,
+        )
+    finally:
+        del eval_model
+        _release_cuda_memory()
+
     return best

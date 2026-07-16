@@ -1,4 +1,4 @@
-"""Application use-case: download filtered Macaulay photos."""
+"""Application use-case: download filtered media from one or more CSVs."""
 
 from __future__ import annotations
 
@@ -11,7 +11,8 @@ from pipelines.download_data.infrastructure import MacaulayDownloader
 from pipelines.shared.csv_manifest import (
     ManifestEntry,
     MediaRecord,
-    load_macaulay_csv,
+    load_media_csv,
+    merge_media_records,
     write_manifest,
 )
 from pipelines.shared.logging_utils import setup_logging
@@ -27,21 +28,19 @@ def _dest_path(output_dir, scientific_name: str, catalog_id: str):
 
 def _download_one(
     downloader: MacaulayDownloader,
-    catalog_id: str,
-    scientific_name: str,
-    common_name: str,
+    record: MediaRecord,
     dest,
     skip_existing: bool,
 ) -> DownloadResult:
-    record = MediaRecord(
-        catalog_id=catalog_id,
-        scientific_name=scientific_name,
-        common_name=common_name,
-    )
     if skip_existing and dest.exists() and dest.stat().st_size > 0:
         return DownloadResult(record=record, image_path=dest, status="skipped")
     try:
-        path = downloader.download(catalog_id, dest)
+        path = downloader.download(
+            record.catalog_id,
+            dest,
+            url=record.url,
+            fuente=record.fuente,
+        )
         return DownloadResult(record=record, image_path=path, status="ok")
     except Exception as exc:  # noqa: BLE001
         return DownloadResult(record=record, image_path=None, status="error", error=str(exc))
@@ -50,8 +49,19 @@ def _download_one(
 def run_download(config: DownloadConfig) -> list[ManifestEntry]:
     species = load_species_list(config.species_path)
     allowed = {s.scientific_name for s in species}
-    media = load_macaulay_csv(config.csv_path, allowed_scientific=allowed)
-    logger.info("Found %d media rows matching %d target species", len(media), len(allowed))
+
+    media_chunks: list[MediaRecord] = []
+    for csv_path in config.csv_paths:
+        chunk = load_media_csv(csv_path, allowed_scientific=allowed)
+        logger.info("Loaded %d media rows from %s", len(chunk), csv_path)
+        media_chunks.extend(chunk)
+    media = merge_media_records(media_chunks)
+    logger.info(
+        "Found %d unique media rows matching %d target species (%d csv files)",
+        len(media),
+        len(allowed),
+        len(config.csv_paths),
+    )
 
     config.output_dir.mkdir(parents=True, exist_ok=True)
     downloader = MacaulayDownloader(
@@ -65,9 +75,7 @@ def run_download(config: DownloadConfig) -> list[ManifestEntry]:
             pool.submit(
                 _download_one,
                 downloader,
-                m.catalog_id,
-                m.scientific_name,
-                m.common_name,
+                m,
                 _dest_path(config.output_dir, m.scientific_name, m.catalog_id),
                 config.skip_existing,
             )
@@ -85,7 +93,7 @@ def run_download(config: DownloadConfig) -> list[ManifestEntry]:
             skipped += 1
         else:
             errors += 1
-            logger.warning("Download failed ML%s: %s", r.record.catalog_id, r.error)
+            logger.warning("Download failed %s: %s", r.record.catalog_id, r.error)
         if r.image_path is not None:
             entries.append(
                 ManifestEntry(

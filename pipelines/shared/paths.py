@@ -87,6 +87,13 @@ class ProjectPaths:
         return matches[-1]
 
     @property
+    def default_download_csv(self) -> Path:
+        path = self.data / "aves_descarga_v2.csv"
+        if not path.exists():
+            raise FileNotFoundError(f"Download CSV not found: {path}")
+        return path
+
+    @property
     def species_file(self) -> Path:
         return self.data / "spicies.txt"
 
