@@ -35,6 +35,44 @@ def _release_cuda_memory() -> None:
         pass
 
 
+def _gpus_by_free_memory() -> list[int]:
+    """Return CUDA device indices sorted by free VRAM (descending)."""
+    import torch
+
+    if not torch.cuda.is_available():
+        return []
+
+    ranked: list[tuple[int, int]] = []
+    for i in range(torch.cuda.device_count()):
+        free_bytes, _total = torch.cuda.mem_get_info(i)
+        ranked.append((i, free_bytes))
+    ranked.sort(key=lambda t: t[1], reverse=True)
+
+    for idx, free in ranked:
+        logger.info(
+            "CUDA:%d free=%.0f MiB (%s)",
+            idx,
+            free / (1024 * 1024),
+            torch.cuda.get_device_name(idx),
+        )
+    return [idx for idx, _ in ranked]
+
+
+def _is_oom(exc: BaseException) -> bool:
+    """True if exc is a CUDA / allocator out-of-memory error."""
+    try:
+        import torch
+
+        if isinstance(exc, torch.cuda.OutOfMemoryError):
+            return True
+    except (ImportError, AttributeError):
+        pass
+    if isinstance(exc, RuntimeError):
+        msg = str(exc).lower()
+        return "out of memory" in msg or "cuda out of memory" in msg
+    return False
+
+
 def _configure_ultralytics_env() -> None:
     cfg = get_project_root() / "artifacts" / "ultralytics_config"
     cfg.mkdir(parents=True, exist_ok=True)
@@ -263,19 +301,34 @@ def run_train(config: TrainConfig) -> Path:
         config.close_mosaic,
     )
 
-    model = YOLO(config.model_name)
+    fixed_device = bool(config.device.strip()) if config.device else False
+    gpu_rank = [] if fixed_device else _gpus_by_free_memory()
+    gpu_cursor = 0
+
+    if fixed_device:
+        current_device: str | int = config.device
+        logger.info("Using fixed device=%s (batch-halve only on OOM)", current_device)
+    elif gpu_rank:
+        current_device = gpu_rank[0]
+        logger.info("Auto-selected CUDA:%s (most free VRAM)", current_device)
+    else:
+        current_device = config.device or ""
+        if current_device:
+            logger.info("No CUDA ranking available; device=%s", current_device)
+        else:
+            logger.info("No CUDA GPUs found; Ultralytics will pick default device")
+
+    batch = config.batch
+    # Next OOM action: True = halve batch, False = switch GPU
+    next_action_halve = True
     tracker = BestByValLossCallback(config.output_dir)
-
-    def on_fit_epoch_end(trainer):
-        tracker.on_fit_epoch_end(trainer)
-
-    model.add_callback("on_fit_epoch_end", on_fit_epoch_end)
+    model = None
 
     train_kwargs = {
         "data": str(config.data_yaml),
         "epochs": config.epochs,
         "imgsz": config.imgsz,
-        "batch": config.batch,
+        "batch": batch,
         "optimizer": config.optimizer,
         "patience": patience,
         "seed": config.seed,
@@ -290,10 +343,97 @@ def run_train(config: TrainConfig) -> Path:
         "mosaic": config.mosaic,
         "close_mosaic": config.close_mosaic,
     }
-    if config.device:
-        train_kwargs["device"] = config.device
 
-    model.train(**train_kwargs)
+    while True:
+        train_kwargs["batch"] = batch
+        if current_device != "" and current_device is not None:
+            train_kwargs["device"] = current_device
+        else:
+            train_kwargs.pop("device", None)
+
+        logger.info(
+            "Starting train attempt | device=%s batch=%s",
+            train_kwargs.get("device", "(auto)"),
+            batch,
+        )
+
+        try:
+            model = YOLO(config.model_name)
+
+            def on_fit_epoch_end(trainer):
+                tracker.on_fit_epoch_end(trainer)
+
+            model.add_callback("on_fit_epoch_end", on_fit_epoch_end)
+            model.train(**train_kwargs)
+            break
+        except Exception as exc:
+            if not _is_oom(exc):
+                raise
+
+            logger.warning(
+                "OOM on device=%s batch=%s: %s",
+                train_kwargs.get("device", "(auto)"),
+                batch,
+                exc,
+            )
+
+            if model is not None:
+                del model
+                model = None
+            _release_cuda_memory()
+            # Reset tracker history from failed attempt
+            tracker = BestByValLossCallback(config.output_dir)
+
+            can_halve = batch > 1
+            can_switch = (
+                not fixed_device and gpu_cursor + 1 < len(gpu_rank)
+            )
+
+            if next_action_halve:
+                if can_halve:
+                    new_batch = max(1, batch // 2)
+                    logger.warning(
+                        "OOM recovery: halving batch %s → %s (same device=%s)",
+                        batch,
+                        new_batch,
+                        train_kwargs.get("device", "(auto)"),
+                    )
+                    batch = new_batch
+                    next_action_halve = False  # next OOM → switch GPU
+                    continue
+                if can_switch:
+                    gpu_cursor += 1
+                    current_device = gpu_rank[gpu_cursor]
+                    logger.warning(
+                        "OOM recovery: batch already 1; switching to CUDA:%s",
+                        current_device,
+                    )
+                    next_action_halve = True
+                    continue
+                raise
+            else:
+                # Prefer switch; if no GPU left, fall back to halve
+                if can_switch:
+                    gpu_cursor += 1
+                    current_device = gpu_rank[gpu_cursor]
+                    logger.warning(
+                        "OOM recovery: switching GPU → CUDA:%s (batch=%s)",
+                        current_device,
+                        batch,
+                    )
+                    next_action_halve = True  # next OOM → halve batch
+                    continue
+                if can_halve:
+                    new_batch = max(1, batch // 2)
+                    logger.warning(
+                        "OOM recovery: no more GPUs; halving batch %s → %s",
+                        batch,
+                        new_batch,
+                    )
+                    batch = new_batch
+                    next_action_halve = False
+                    continue
+                raise
 
     # Ensure best.pt exists (fallback to ultralytics best)
     best = config.output_dir / "best.pt"
