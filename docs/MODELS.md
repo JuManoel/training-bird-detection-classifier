@@ -18,27 +18,19 @@ uv run avesia-train --batch 8 --workers 2 --model yolo26m.pt
 uv run avesia-predict --source path/to/image.jpg
 ```
 
-## Auto-labeling — dfine-cpp
+## Auto-labeling — YOLO26x
 
-- Repo: [PogChamper/dfine-cpp](https://github.com/PogChamper/dfine-cpp)
-- Used **only for inference** (COCO `bird` boxes). Does not train.
-- Requires NVIDIA GPU + TensorRT 10.x.
+- Hub: [Ultralytics/YOLO26](https://huggingface.co/Ultralytics/YOLO26)
+- Uses the COCO-pretrained `yolo26x.pt` detector and keeps only the `bird` class.
+- The detected boxes are relabeled with each image's scientific species from the manifest.
+- Uses PyTorch/Ultralytics, so TensorRT and dfine-cpp are not required.
 
 ### Setup
 
 ```bash
 uv sync
-# Install the platform wheel from GitHub Releases, e.g.:
-uv pip install "tensorrt-cu12==10.13.*" --extra-index-url https://pypi.nvidia.com
-uv pip install "dfine @ https://github.com/PogChamper/dfine-cpp/releases/download/v0.3.3/dfine-0.3.3-py3-none-linux_x86_64.whl"
-
-# Download ONNX + build a local engine (one-time):
-curl -LO https://github.com/PogChamper/dfine-cpp/releases/download/v0.3.3/dfine_m_slim.onnx
-curl -LO https://github.com/PogChamper/dfine-cpp/releases/download/v0.3.3/dfine_m_slim.json
-uv run dfine build --model m --onnx dfine_m_slim.onnx --output artifacts/dfine_m_slim.engine
-
-uv run avesia-extract --engine artifacts/dfine_m_slim.engine
-# optional: --imgsz 640 --jpeg-quality 90 --highest-only
+uv run avesia-extract
+# optional: --model yolo26m.pt --device 0 --imgsz 640 --highest-only
 ```
 
-Species class ids come from the CSV/scientific name. Box geometry comes from all COCO `bird` detections by default (`--highest-only` keeps only the top score). Dataset images are full frames downscaled so `max(side) <= --imgsz` (default 640), matching Full HD camera → model input without requiring zoom.
+`yolo26x.pt` is downloaded automatically on first use. Species class ids come from the CSV/scientific name. Box geometry comes from all COCO `bird` detections by default (`--highest-only` keeps only the top score). Dataset images are full frames downscaled so `max(side) <= --imgsz` (default 640), matching Full HD camera → model input without requiring zoom. Use a smaller COCO model such as `yolo26m.pt` if GPU memory is limited.

@@ -36,6 +36,6 @@ uv run avesia-download
 # filters default CSVs by spicies.txt and writes artifacts/manifest.csv
 # override sources: uv run avesia-download --csv path/a.csv --csv path/b.csv
 
-uv run avesia-extract --engine artifacts/dfine_m_slim.engine
-# optional: --imgsz 640 --jpeg-quality 90 --highest-only
+uv run avesia-extract
+# optional: --model yolo26m.pt --device 0 --imgsz 640 --highest-only
 ```

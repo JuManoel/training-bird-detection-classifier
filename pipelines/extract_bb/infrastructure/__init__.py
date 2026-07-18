@@ -1,5 +1,5 @@
 """Extract pipeline infrastructure."""
 
-from pipelines.extract_bb.infrastructure.dfine_detector import DfineBirdDetector
+from pipelines.extract_bb.infrastructure.yolo_detector import YoloBirdDetector
 
-__all__ = ["DfineBirdDetector"]
+__all__ = ["YoloBirdDetector"]

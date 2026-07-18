@@ -1,4 +1,4 @@
-"""CLI for dfine-cpp bird box extraction → YOLO dataset."""
+"""CLI for YOLO26 bird box extraction → multi-species YOLO dataset."""
 
 from __future__ import annotations
 
@@ -13,16 +13,22 @@ from pipelines.shared.paths import ProjectPaths
 def build_parser() -> argparse.ArgumentParser:
     paths = ProjectPaths.from_root()
     p = argparse.ArgumentParser(
-        description="Extract bird boxes with dfine-cpp and build a YOLO dataset"
+        description="Extract COCO bird boxes with YOLO26 and build a species dataset"
     )
     p.add_argument("--manifest", type=str, default=str(paths.manifest))
     p.add_argument("--species", type=str, default=str(paths.species_file))
     p.add_argument("--dataset", type=str, default=str(paths.dataset))
     p.add_argument(
-        "--engine",
+        "--model",
         type=str,
-        required=True,
-        help="Path to dfine TensorRT engine (e.g. dfine_m_slim.engine)",
+        default="yolo26x.pt",
+        help="Ultralytics COCO detector weights (default: yolo26x.pt)",
+    )
+    p.add_argument(
+        "--device",
+        type=str,
+        default=None,
+        help="Inference device, e.g. 0, cuda:0 or cpu (default: Ultralytics auto)",
     )
     p.add_argument("--threshold", type=float, default=0.4)
     p.add_argument(
@@ -59,7 +65,8 @@ def main(argv: list[str] | None = None) -> None:
         manifest_path=Path(args.manifest),
         species_path=Path(args.species),
         dataset_root=Path(args.dataset),
-        engine_path=Path(args.engine),
+        model=args.model,
+        device=args.device,
         threshold=args.threshold,
         keep_all=args.keep_all and not args.highest_only,
         imgsz=args.imgsz,

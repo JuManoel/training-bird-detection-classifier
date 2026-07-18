@@ -1,1 +1,1 @@
-"""Bounding-box extraction pipeline (dfine-cpp)."""
+"""Bounding-box extraction pipeline (Ultralytics YOLO26)."""

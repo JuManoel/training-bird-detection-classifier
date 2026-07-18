@@ -1,4 +1,4 @@
-"""Build YOLO dataset from dfine bird boxes + species labels."""
+"""Build a species dataset from COCO bird boxes detected by YOLO26."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from PIL import Image
 from tqdm import tqdm
 
 from pipelines.extract_bb.domain import ExtractConfig
-from pipelines.extract_bb.infrastructure import DfineBirdDetector
+from pipelines.extract_bb.infrastructure import YoloBirdDetector
 from pipelines.shared.csv_manifest import ManifestEntry, read_manifest
 from pipelines.shared.logging_utils import setup_logging
 from pipelines.shared.species import load_species_list
@@ -73,9 +73,11 @@ def run_extract(config: ExtractConfig) -> dict[str, int]:
     staged: list[tuple[ManifestEntry, Path, list]] = []
     rejected = 0
 
-    with DfineBirdDetector(
-        engine_path=config.engine_path,
+    with YoloBirdDetector(
+        model=config.model,
         threshold=config.threshold,
+        imgsz=config.imgsz,
+        device=config.device,
         bird_class_names=config.bird_class_names,
     ) as detector:
         for entry in tqdm(entries, desc="extract_bb"):

@@ -21,7 +21,8 @@ class ExtractConfig:
     manifest_path: Path
     species_path: Path
     dataset_root: Path
-    engine_path: Path
+    model: str = "yolo26x.pt"
+    device: str | None = None
     threshold: float = 0.4
     keep_all: bool = True
     imgsz: int = 640
