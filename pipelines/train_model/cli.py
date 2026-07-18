@@ -34,7 +34,7 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument(
         "--batch",
         type=int,
-        default=512,
+        default=32,
         help="Batch size (use -1 for Ultralytics auto-batch)",
     )
     p.add_argument("--device", type=str, default="")
