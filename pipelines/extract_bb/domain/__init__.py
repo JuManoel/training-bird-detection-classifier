@@ -33,5 +33,9 @@ class ExtractConfig:
     jpeg_quality: int = 90
     train_ratio: float = 0.8
     seed: int = 42
+    # Post-detection crop thresholds (unique crops after dedupe).
     min_images: int = 125
+    target_images: int = 500
+    max_per_species: int = 1000
+    perceptual_max_hamming: int = 5
     bird_class_names: tuple[str, ...] = ("bird",)

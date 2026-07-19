@@ -1,7 +1,8 @@
-"""Application use-case: download filtered media from CSVs and optional APIs."""
+"""Application use-case: download filtered media from CSVs and APIs."""
 
 from __future__ import annotations
 
+import csv
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
@@ -23,6 +24,7 @@ from pipelines.shared.csv_manifest import (
 )
 from pipelines.shared.dedupe import (
     cap_per_species,
+    dedupe_by_content,
     dedupe_media_records,
     file_sha256,
 )
@@ -82,6 +84,21 @@ def _load_csv_records(config: DownloadConfig, resolve) -> list[MediaRecord]:
     return media_chunks
 
 
+def _split_api_quotas(need: int, fetch_inat: bool, fetch_gbif: bool) -> tuple[int, int]:
+    """Split the remaining deficit across enabled APIs (both get work when both on)."""
+    if need <= 0:
+        return 0, 0
+    if fetch_inat and fetch_gbif:
+        inat_quota = (need + 1) // 2
+        gbif_quota = need - inat_quota
+        return inat_quota, gbif_quota
+    if fetch_inat:
+        return need, 0
+    if fetch_gbif:
+        return 0, need
+    return 0, 0
+
+
 def _maybe_fetch_apis(
     config: DownloadConfig,
     catalog_names: list[str],
@@ -107,31 +124,81 @@ def _maybe_fetch_apis(
         targets = list(catalog_names)
 
     logger.info("API fetch targets: %d species", len(targets))
-    if config.fetch_inat:
-        client = INaturalistClient(timeout_s=config.timeout_s, max_retries=config.max_retries)
-        for name in tqdm(targets, desc="inat_api"):
-            need = max(0, config.max_per_species - by_name.get(name, 0))
-            if need <= 0:
-                continue
-            fetched = client.fetch_species_photos(name, max_records=need)
-            extra.extend(fetched)
-            by_name[name] = by_name.get(name, 0) + len(fetched)
-
-    if config.fetch_gbif:
-        client = GbifClient(
+    inat_client = (
+        INaturalistClient(timeout_s=config.timeout_s, max_retries=config.max_retries)
+        if config.fetch_inat
+        else None
+    )
+    gbif_client = (
+        GbifClient(
             timeout_s=config.timeout_s,
             max_retries=config.max_retries,
             country=config.gbif_country,
         )
-        for name in tqdm(targets, desc="gbif_api"):
-            need = max(0, config.max_per_species - by_name.get(name, 0))
-            if need <= 0:
-                continue
-            fetched = client.fetch_species_photos(name, max_records=need)
+        if config.fetch_gbif
+        else None
+    )
+
+    for name in tqdm(targets, desc="api_fetch"):
+        need = max(0, config.max_per_species - by_name.get(name, 0))
+        if need <= 0:
+            continue
+        inat_quota, gbif_quota = _split_api_quotas(
+            need, config.fetch_inat, config.fetch_gbif
+        )
+        inat_got = 0
+        gbif_got = 0
+
+        if inat_client is not None and inat_quota > 0:
+            fetched = inat_client.fetch_species_photos(name, max_records=inat_quota)
             extra.extend(fetched)
-            by_name[name] = by_name.get(name, 0) + len(fetched)
+            inat_got = len(fetched)
+
+        # GBIF gets its share plus any iNat shortfall.
+        gbif_need = gbif_quota + max(0, inat_quota - inat_got)
+        if gbif_client is not None and gbif_need > 0:
+            fetched = gbif_client.fetch_species_photos(name, max_records=gbif_need)
+            extra.extend(fetched)
+            gbif_got = len(fetched)
+
+        # If GBIF fell short and iNat still has budget room, top up iNat.
+        remaining = need - inat_got - gbif_got
+        if inat_client is not None and remaining > 0 and inat_got < need:
+            fetched = inat_client.fetch_species_photos(name, max_records=remaining)
+            extra.extend(fetched)
+            inat_got += len(fetched)
+
+        by_name[name] = by_name.get(name, 0) + inat_got + gbif_got
 
     return extra
+
+
+def _write_duplicate_report(path: Path, drops) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as fh:
+        writer = csv.DictWriter(
+            fh,
+            fieldnames=[
+                "dropped_catalog_id",
+                "kept_catalog_id",
+                "reason",
+                "distance",
+                "dropped_path",
+                "kept_path",
+            ],
+        )
+        writer.writeheader()
+        for drop in drops:
+            writer.writerow(
+                {
+                    "dropped_catalog_id": drop.dropped.catalog_id,
+                    "kept_catalog_id": drop.kept.catalog_id,
+                    "reason": drop.reason,
+                    "distance": drop.distance if drop.distance is not None else "",
+                    "dropped_path": drop.dropped.image_path,
+                    "kept_path": drop.kept.image_path,
+                }
+            )
 
 
 def run_download(config: DownloadConfig) -> list[ManifestEntry]:
@@ -204,15 +271,14 @@ def run_download(config: DownloadConfig) -> list[ManifestEntry]:
                 )
             )
 
-    # Hash-level dedupe after download
-    seen_hash: set[str] = set()
-    deduped_entries: list[ManifestEntry] = []
-    for entry in entries:
-        if entry.media_hash and entry.media_hash in seen_hash:
-            continue
-        if entry.media_hash:
-            seen_hash.add(entry.media_hash)
-        deduped_entries.append(entry)
+    dedupe = dedupe_by_content(
+        entries,
+        path_of=lambda e: Path(e.image_path),
+        max_hamming=config.perceptual_max_hamming,
+    )
+    deduped_entries = dedupe.kept
+    dup_report = config.manifest_path.parent / "download_duplicates.csv"
+    _write_duplicate_report(dup_report, dedupe.dropped)
 
     write_manifest(config.manifest_path, deduped_entries)
     cov = coverage_from_records(
@@ -223,11 +289,14 @@ def run_download(config: DownloadConfig) -> list[ManifestEntry]:
     write_coverage_report(cov, config.coverage_json, config.coverage_csv)
     included = sum(1 for row in cov if row.included)
     logger.info(
-        "Download done: ok=%d skipped=%d errors=%d kept=%d species_included=%d/%d manifest=%s",
+        "Download done: ok=%d skipped=%d errors=%d kept=%d "
+        "exact_dupes=%d perceptual_dupes=%d species_included=%d/%d manifest=%s",
         ok,
         skipped,
         errors,
         len(deduped_entries),
+        dedupe.exact_duplicates,
+        dedupe.perceptual_duplicates,
         included,
         len(cov),
         config.manifest_path,

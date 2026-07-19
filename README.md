@@ -2,8 +2,8 @@
 
 Two-stage bird pipeline for Colombian avifauna:
 
-1. **download** — photos for species in the Colombian catalog (Macaulay / iNaturalist CSVs; optional GBIF + iNat APIs; optional Icesi CSV)
-2. **extract** — YOLO detects `bird` → 1-class detection dataset + **256×256** species crops for classification
+1. **download** — photos for species in the Colombian catalog (Macaulay / iNaturalist CSVs + **iNat & GBIF APIs on by default**; optional Icesi CSV)
+2. **extract** — YOLO detects every `bird` box → 1-class detection dataset + **256×256** species crops for classification
 3. **train** — optional fine-tune of the single-class bird detector
 4. **train-cls** — train/compare **ResNet18**, **VGG16**, and **YOLO26x-cls** on crops
 5. **predict** — detect birds, crop, classify species (optionally compare all three classifiers)
@@ -13,9 +13,10 @@ Two-stage bird pipeline for Colombian avifauna:
 ```bash
 uv sync --extra dev
 
-# Build/update catalog + download (existing CSVs; APIs optional)
+# Build/update catalog + download (CSVs + iNat/GBIF APIs)
 uv run avesia-download
-# uv run avesia-download --fetch-inat --fetch-gbif
+# Disable APIs if needed:
+# uv run avesia-download --no-fetch-inat --no-fetch-gbif
 
 uv run avesia-extract
 # optional detector fine-tune:
@@ -33,8 +34,13 @@ uv run avesia-predict --source path/to/image.jpg --compare
 
 - Classes = species listed for Colombia (canonical binomials; subspecies collapsed).
 - Photos may come from any country.
-- Target ≈ 500 images/species; **minimum 125** unique crops (≈100 train / 25 val).
+- **Thresholds apply after detection**, on unique crops (exact + perceptual dedupe):
+  - **minimum 125** crops/species to include a class
+  - **target ≈ 500** crops/species
+  - **hard cap 1000** crops/species
+- Each YOLO bird box becomes one crop: 5 birds in one photo → +5 toward that species.
 - Classification trains **only** on YOLO bird crops resized to **256×256**.
+- Species that never reach 125 unique crops are excluded and reported.
 
 See [docs/DATA.md](docs/DATA.md) and [docs/MODELS.md](docs/MODELS.md).
 

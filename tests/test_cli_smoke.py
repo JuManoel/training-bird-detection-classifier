@@ -10,14 +10,27 @@ from pipelines.train_model.cli import build_parser as build_train
 def test_download_parser_defaults():
     p = build_download()
     args = p.parse_args([])
-    assert args.max_per_species == 500
+    assert args.max_per_species == 2000
     assert args.min_images == 125
+    assert args.target_images == 500
+    assert args.no_fetch_inat is False
+    assert args.no_fetch_gbif is False
 
 
-def test_extract_parser_crop_size():
+def test_download_parser_disable_apis():
+    p = build_download()
+    args = p.parse_args(["--no-fetch-inat", "--no-fetch-gbif"])
+    assert args.no_fetch_inat is True
+    assert args.no_fetch_gbif is True
+
+
+def test_extract_parser_crop_thresholds():
     p = build_extract()
     args = p.parse_args([])
     assert args.crop_size == 256
+    assert args.min_images == 125
+    assert args.target_images == 500
+    assert args.max_per_species == 1000
 
 
 def test_train_cls_parser_architectures():

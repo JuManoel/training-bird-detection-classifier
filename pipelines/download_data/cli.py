@@ -15,7 +15,7 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         description=(
             "Download bird photos for Colombian catalog species "
-            "(Macaulay / iNaturalist CSVs + optional GBIF/iNat APIs)"
+            "(Macaulay / iNaturalist CSVs + iNat/GBIF APIs by default)"
         )
     )
     p.add_argument(
@@ -53,19 +53,34 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--no-skip-existing", action="store_true")
     p.add_argument("--timeout", type=float, default=60.0)
     p.add_argument("--retries", type=int, default=3)
-    p.add_argument("--max-per-species", type=int, default=500)
-    p.add_argument("--min-images", type=int, default=125)
-    p.add_argument("--target-images", type=int, default=500)
-    p.add_argument("--seed", type=int, default=42)
     p.add_argument(
-        "--fetch-inat",
-        action="store_true",
-        help="Fetch additional photos from the iNaturalist API",
+        "--max-per-species",
+        type=int,
+        default=2000,
+        help="Max candidate downloads per species before detection (default: 2000)",
     )
     p.add_argument(
-        "--fetch-gbif",
+        "--min-images",
+        type=int,
+        default=125,
+        help="Coverage advisory minimum (final gate is post-detection crops)",
+    )
+    p.add_argument(
+        "--target-images",
+        type=int,
+        default=500,
+        help="Coverage target for deciding which species need API top-up",
+    )
+    p.add_argument("--seed", type=int, default=42)
+    p.add_argument(
+        "--no-fetch-inat",
         action="store_true",
-        help="Fetch additional StillImage media from GBIF (incl. SiB Colombia records)",
+        help="Disable iNaturalist API fetching (enabled by default)",
+    )
+    p.add_argument(
+        "--no-fetch-gbif",
+        action="store_true",
+        help="Disable GBIF API fetching (enabled by default)",
     )
     p.add_argument(
         "--fetch-all-species",
@@ -77,6 +92,12 @@ def build_parser() -> argparse.ArgumentParser:
         type=str,
         default=None,
         help="Optional GBIF country filter (e.g. CO). Default: no geographic filter",
+    )
+    p.add_argument(
+        "--perceptual-max-hamming",
+        type=int,
+        default=5,
+        help="Max aHash Hamming distance to treat two downloads as near-duplicates",
     )
     return p
 
@@ -110,10 +131,11 @@ def main(argv: list[str] | None = None) -> None:
         min_images=args.min_images,
         target_images=args.target_images,
         seed=args.seed,
-        fetch_inat=args.fetch_inat,
-        fetch_gbif=args.fetch_gbif,
+        fetch_inat=not args.no_fetch_inat,
+        fetch_gbif=not args.no_fetch_gbif,
         fetch_only_below_target=not args.fetch_all_species,
         gbif_country=args.gbif_country,
+        perceptual_max_hamming=args.perceptual_max_hamming,
     )
     run_download(config)
 

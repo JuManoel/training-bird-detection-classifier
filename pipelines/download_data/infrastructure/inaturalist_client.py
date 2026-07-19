@@ -53,7 +53,7 @@ class INaturalistClient:
         scientific_name: str,
         *,
         per_page: int = 200,
-        max_records: int = 500,
+        max_records: int = 2000,
         quality_grade: str = "research",
     ) -> list[MediaRecord]:
         """Return photo MediaRecords for one species (any geography)."""
@@ -132,7 +132,7 @@ class INaturalistClient:
         self,
         scientific_names: Iterable[str],
         *,
-        max_per_species: int = 500,
+        max_per_species: int = 2000,
     ) -> list[MediaRecord]:
         out: list[MediaRecord] = []
         for name in scientific_names:

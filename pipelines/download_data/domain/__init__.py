@@ -21,14 +21,16 @@ class DownloadConfig:
     skip_existing: bool = True
     timeout_s: float = 60.0
     max_retries: int = 3
-    max_per_species: int = 500
+    # Candidate budget before detection (oversample so post-crop caps can fill).
+    max_per_species: int = 2000
     min_images: int = 125
     target_images: int = 500
     seed: int = 42
-    fetch_inat: bool = False
-    fetch_gbif: bool = False
+    fetch_inat: bool = True
+    fetch_gbif: bool = True
     fetch_only_below_target: bool = True
     gbif_country: str | None = None
+    perceptual_max_hamming: int = 5
 
 
 @dataclass(frozen=True)

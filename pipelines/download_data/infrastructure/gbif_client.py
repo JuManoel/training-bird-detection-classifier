@@ -64,7 +64,7 @@ class GbifClient:
         self,
         scientific_name: str,
         *,
-        max_records: int = 500,
+        max_records: int = 2000,
         limit: int = 100,
     ) -> list[MediaRecord]:
         canon = normalize_scientific_name(scientific_name)
@@ -136,7 +136,7 @@ class GbifClient:
         self,
         scientific_names: Iterable[str],
         *,
-        max_per_species: int = 500,
+        max_per_species: int = 2000,
     ) -> list[MediaRecord]:
         out: list[MediaRecord] = []
         for name in scientific_names:
