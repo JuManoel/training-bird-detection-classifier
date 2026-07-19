@@ -13,7 +13,10 @@ from pipelines.shared.paths import ProjectPaths
 def build_parser() -> argparse.ArgumentParser:
     paths = ProjectPaths.from_root()
     p = argparse.ArgumentParser(
-        description="Download bird photos (Macaulay export and/or aves_descarga CSV)"
+        description=(
+            "Download bird photos for Colombian catalog species "
+            "(Macaulay / iNaturalist CSVs + optional GBIF/iNat APIs)"
+        )
     )
     p.add_argument(
         "--csv",
@@ -29,7 +32,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--species",
         type=str,
         default=str(paths.species_file),
-        help="Species list (common,scientific)",
+        help="Species list (common,scientific) used to bootstrap the catalog",
+    )
+    p.add_argument(
+        "--catalog",
+        type=str,
+        default=str(paths.species_catalog),
+        help="Canonical Colombian species catalog JSON",
     )
     p.add_argument("--out", type=str, default=str(paths.images_raw), help="Raw images directory")
     p.add_argument(
@@ -38,10 +47,37 @@ def build_parser() -> argparse.ArgumentParser:
         default=str(paths.manifest),
         help="Output manifest CSV path",
     )
+    p.add_argument("--coverage-json", type=str, default=str(paths.coverage_json))
+    p.add_argument("--coverage-csv", type=str, default=str(paths.coverage_csv))
     p.add_argument("--workers", type=int, default=8)
     p.add_argument("--no-skip-existing", action="store_true")
     p.add_argument("--timeout", type=float, default=60.0)
     p.add_argument("--retries", type=int, default=3)
+    p.add_argument("--max-per-species", type=int, default=500)
+    p.add_argument("--min-images", type=int, default=125)
+    p.add_argument("--target-images", type=int, default=500)
+    p.add_argument("--seed", type=int, default=42)
+    p.add_argument(
+        "--fetch-inat",
+        action="store_true",
+        help="Fetch additional photos from the iNaturalist API",
+    )
+    p.add_argument(
+        "--fetch-gbif",
+        action="store_true",
+        help="Fetch additional StillImage media from GBIF (incl. SiB Colombia records)",
+    )
+    p.add_argument(
+        "--fetch-all-species",
+        action="store_true",
+        help="API-fetch every catalog species (default: only those below target)",
+    )
+    p.add_argument(
+        "--gbif-country",
+        type=str,
+        default=None,
+        help="Optional GBIF country filter (e.g. CO). Default: no geographic filter",
+    )
     return p
 
 
@@ -53,15 +89,31 @@ def main(argv: list[str] | None = None) -> None:
         if args.csv
         else (paths.default_csv, paths.default_download_csv)
     )
+    # Auto-include Icesi exports when present
+    icesi = sorted(paths.data.glob("icesi*.csv"))
+    if not args.csv and icesi:
+        csv_paths = csv_paths + tuple(icesi)
+
     config = DownloadConfig(
         csv_paths=csv_paths,
         species_path=Path(args.species),
+        catalog_path=Path(args.catalog),
         output_dir=Path(args.out),
         manifest_path=Path(args.manifest),
+        coverage_json=Path(args.coverage_json),
+        coverage_csv=Path(args.coverage_csv),
         max_workers=args.workers,
         skip_existing=not args.no_skip_existing,
         timeout_s=args.timeout,
         max_retries=args.retries,
+        max_per_species=args.max_per_species,
+        min_images=args.min_images,
+        target_images=args.target_images,
+        seed=args.seed,
+        fetch_inat=args.fetch_inat,
+        fetch_gbif=args.fetch_gbif,
+        fetch_only_below_target=not args.fetch_all_species,
+        gbif_country=args.gbif_country,
     )
     run_download(config)
 

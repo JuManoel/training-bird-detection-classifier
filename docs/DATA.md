@@ -1,41 +1,65 @@
 # Data
 
+## Catalog
+
+- **Species list (bootstrap):** [`data/spicies.txt`](../data/spicies.txt) — `common_name,scientific_name`
+- **Canonical catalog:** [`data/colombia_species_catalog.json`](../data/colombia_species_catalog.json) — binomials for Colombian-listed species, synonyms, optional GBIF/iNat/eBird IDs
+- Names are normalized to species rank (subspecies, `[Group]`, `(Domestic type)` collapsed)
+
+Photos of catalog species may come from **any country**. Xeno-canto is not used (audio only).
+
 ## Sources
 
-- **Species list:** [`data/spicies.txt`](../data/spicies.txt) — `common_name,scientific_name` (~938 target species: original 100 plus species from the download CSV).
-- **Macaulay export:** [`data/ML__*_photo_CO-CAL.csv`](../data/) — photo metadata for Caldas, Colombia (`regionCode=CO-CAL`). Export from [Macaulay Library search](https://search.macaulaylibrary.org/catalog?regionCode=CO-CAL&view=list).
-- **Unified download CSV:** [`data/aves_descarga_v2.csv`](../data/aves_descarga_v2.csv) — `asset_id,nombre_cientifico,nombre_comun,species_code,url,fuente` (Macaulay + iNaturalist; iNaturalist rows include a direct `url`).
-- **Download CDN (Macaulay):** `https://cdn.download.ams.birds.cornell.edu/api/v1/asset/{ML_Catalog_Number}/`
+| Source | How it is used |
+|---|---|
+| Macaulay / eBird exports | CSV (`ML__*_photo_CO-CAL.csv` and additional ML exports) |
+| iNaturalist | Rows in `aves_descarga_v2.csv` + optional `--fetch-inat` API |
+| GBIF / SiB Colombia | Optional `--fetch-gbif` StillImage API (SiB records appear in GBIF) |
+| Icesi | Optional `data/icesi*.csv` generic media CSV |
+| eBird API | Not used for photos; use Macaulay exports instead |
 
-`avesia-download` loads both CSVs by default, filters by `spicies.txt`, and dedupes by asset/catalog id. When a species appears in both datasets, images from both sources are kept.
+Respect [Macaulay media guidelines](https://support.ebird.org/en/support/solutions/articles/48001064551-using-and-requesting-media) and Creative Commons licenses on iNat/GBIF. Incompatible licenses are filtered when present; legacy Macaulay rows without a license column are kept under the project's academic-use policy.
 
-Respect [Macaulay Library media use guidelines](https://support.ebird.org/en/support/solutions/articles/48001064551-using-and-requesting-media) for academic/non-commercial research.
+## Thresholds
+
+- **Target:** 500 images per species (cap while sampling across sources)
+- **Minimum to train:** 125 unique crops after detection (80/20 → ≥100 train)
+- Coverage report: `artifacts/coverage.json` + `artifacts/coverage.csv`
 
 ## Artifacts layout
 
 ```
 artifacts/
-  images/raw/{Scientific_Name}/{catalog_id}.jpg   # originals (Full HD / source resolution)
-  manifest.csv
+  images/raw/{Scientific_Name}/{catalog_id}.jpg
+  manifest.csv                 # rich metadata (source, license, hash, …)
+  coverage.json
   dataset/
-    images/{train,val}/   # full frames downscaled so max(side) <= imgsz (default 640)
-    labels/{train,val}/
-    rejected/
-    classes.txt
-    data.yaml
-  runs/train/          # Ultralytics run + best.pt + plots/
-  runs/predict/
+    detect/                    # single-class bird YOLO dataset
+      images/{train,val}/
+      labels/{train,val}/
+      classes.txt              # bird
+      data.yaml
+      rejected/
+    classify/                  # ImageFolder crops for classifiers
+      train/{Scientific_Name}/*.jpg   # always 256×256
+      val/{Scientific_Name}/*.jpg
+      classes.txt
+      crops_manifest.csv
+  runs/
+    train/                     # optional detector fine-tune
+    train_cls/{resnet18,vgg16,yolo26x_cls}/
+    predict/
 ```
-
-Raw downloads stay at source resolution. `avesia-extract` detects boxes on the original, then writes **resized** JPEG full frames into the YOLO dataset (proportional downscale, no upscale) so training matches production cameras (Full HD → model input). By default **all** COCO `bird` boxes are kept (multi-bird scenes); use `--highest-only` for a single box.
 
 ## Pipeline
 
 ```bash
 uv run avesia-download
-# filters default CSVs by spicies.txt and writes artifacts/manifest.csv
-# override sources: uv run avesia-download --csv path/a.csv --csv path/b.csv
+# optional APIs for species below the 500 target:
+uv run avesia-download --fetch-inat --fetch-gbif
 
 uv run avesia-extract
-# optional: --model yolo26m.pt --device 0 --imgsz 640 --highest-only
+# --crop-size 256 --min-images 125 --pad-ratio 0.1
 ```
+
+`avesia-extract` keeps the **highest-scoring** bird box per image (multi-bird scenes are recorded but only the top box becomes a crop). Pseudo-labels come from the image's species folder/manifest — review rejected/multi-bird cases when adding noisy sources.

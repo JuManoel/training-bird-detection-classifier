@@ -20,13 +20,18 @@ class BBox:
 class ExtractConfig:
     manifest_path: Path
     species_path: Path
-    dataset_root: Path
+    catalog_path: Path
+    detect_root: Path
+    classify_root: Path
+    coverage_json: Path
     model: str = "yolo26x.pt"
     device: str | None = None
     threshold: float = 0.4
-    keep_all: bool = True
     imgsz: int = 640
+    crop_size: int = 256
+    pad_ratio: float = 0.1
     jpeg_quality: int = 90
     train_ratio: float = 0.8
     seed: int = 42
+    min_images: int = 125
     bird_class_names: tuple[str, ...] = ("bird",)

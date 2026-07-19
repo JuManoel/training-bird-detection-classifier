@@ -1,11 +1,12 @@
 [project]
 name = "avesia-yolo"
 version = "0.1.0"
-description = "YOLO26 pipelines for bird auto-labeling and multi-species detection"
+description = "YOLO bird detection + specialized species classifiers for Colombian avifauna"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "torch>=2.2.0",
+    "torchvision>=0.17.0",
     "ultralytics>=8.3.0",
     "pillow>=10.0.0",
     "pandas>=2.0.0",
@@ -22,7 +23,13 @@ dependencies = [
 avesia-download = "pipelines.download_data.cli:main"
 avesia-extract = "pipelines.extract_bb.cli:main"
 avesia-train = "pipelines.train_model.cli:main"
+avesia-train-cls = "pipelines.train_classifier.cli:main"
 avesia-predict = "pipelines.predict_model.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -33,3 +40,7 @@ packages = ["pipelines"]
 
 [tool.uv]
 package = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

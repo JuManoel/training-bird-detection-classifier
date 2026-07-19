@@ -25,7 +25,9 @@ def _parse_cache(value: str) -> bool | str:
 
 def build_parser() -> argparse.ArgumentParser:
     paths = ProjectPaths.from_root()
-    p = argparse.ArgumentParser(description="Train YOLO26 multi-class bird detector")
+    p = argparse.ArgumentParser(
+        description="Train YOLO26 single-class bird detector (optional fine-tune)"
+    )
     p.add_argument("--data", type=str, default=str(paths.data_yaml))
     p.add_argument("--out", type=str, default=str(paths.train_run))
     p.add_argument("--model", type=str, default="yolo26x.pt")

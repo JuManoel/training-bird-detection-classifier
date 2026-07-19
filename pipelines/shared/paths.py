@@ -27,47 +27,86 @@ class ProjectPaths:
 
     @property
     def artifacts(self) -> Path:
+        return self.artifacts_root
+
+    @property
+    def artifacts_root(self) -> Path:
         return self.root / "artifacts"
 
     @property
     def images_raw(self) -> Path:
-        return self.artifacts / "images" / "raw"
+        return self.artifacts_root / "images" / "raw"
 
     @property
     def manifest(self) -> Path:
-        return self.artifacts / "manifest.csv"
+        return self.artifacts_root / "manifest.csv"
+
+    @property
+    def coverage_json(self) -> Path:
+        return self.artifacts_root / "coverage.json"
+
+    @property
+    def coverage_csv(self) -> Path:
+        return self.artifacts_root / "coverage.csv"
+
+    @property
+    def species_catalog(self) -> Path:
+        return self.data / "colombia_species_catalog.json"
 
     @property
     def dataset(self) -> Path:
-        return self.artifacts / "dataset"
+        """Legacy alias → detection dataset root."""
+        return self.dataset_detect
+
+    @property
+    def dataset_detect(self) -> Path:
+        return self.artifacts_root / "dataset" / "detect"
+
+    @property
+    def dataset_classify(self) -> Path:
+        return self.artifacts_root / "dataset" / "classify"
 
     @property
     def dataset_images(self) -> Path:
-        return self.dataset / "images"
+        return self.dataset_detect / "images"
 
     @property
     def dataset_labels(self) -> Path:
-        return self.dataset / "labels"
+        return self.dataset_detect / "labels"
 
     @property
     def dataset_rejected(self) -> Path:
-        return self.dataset / "rejected"
+        return self.dataset_detect / "rejected"
 
     @property
     def data_yaml(self) -> Path:
-        return self.dataset / "data.yaml"
+        return self.dataset_detect / "data.yaml"
 
     @property
     def class_names(self) -> Path:
-        return self.dataset / "classes.txt"
+        return self.dataset_detect / "classes.txt"
+
+    @property
+    def classify_manifest(self) -> Path:
+        return self.dataset_classify / "crops_manifest.csv"
 
     @property
     def runs(self) -> Path:
-        return self.artifacts / "runs"
+        return self.artifacts_root / "runs"
 
     @property
     def train_run(self) -> Path:
         return self.runs / "train"
+
+    @property
+    def train_cls_run(self) -> Path:
+        return self.runs / "train_cls"
+
+    def classifier_run(self, architecture: str) -> Path:
+        return self.train_cls_run / architecture
+
+    def classifier_best(self, architecture: str) -> Path:
+        return self.classifier_run(architecture) / "best.pt"
 
     @property
     def best_checkpoint(self) -> Path:
@@ -105,7 +144,10 @@ class ProjectPaths:
             self.dataset_labels / "train",
             self.dataset_labels / "val",
             self.dataset_rejected,
+            self.dataset_classify / "train",
+            self.dataset_classify / "val",
             self.train_run / "plots",
+            self.train_cls_run,
             self.predict_out,
         ):
             path.mkdir(parents=True, exist_ok=True)
