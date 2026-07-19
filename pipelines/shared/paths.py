@@ -50,6 +50,11 @@ class ProjectPaths:
         return self.artifacts_root / "coverage.csv"
 
     @property
+    def api_fetch_checkpoint(self) -> Path:
+        """CSV of media rows discovered via iNat/GBIF (resume between runs)."""
+        return self.artifacts_root / "api_fetch_checkpoint.csv"
+
+    @property
     def species_catalog(self) -> Path:
         return self.data / "colombia_species_catalog.json"
 

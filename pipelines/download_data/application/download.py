@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
@@ -21,6 +22,7 @@ from pipelines.shared.csv_manifest import (
     detect_csv_format,
     load_media_csv,
     write_manifest,
+    write_media_csv,
 )
 from pipelines.shared.dedupe import (
     cap_per_species,
@@ -32,6 +34,34 @@ from pipelines.shared.logging_utils import setup_logging
 from pipelines.shared.taxonomy import species_folder_name
 
 logger = setup_logging(name="avesia.download")
+
+
+def _api_done_path(checkpoint: Path) -> Path:
+    return checkpoint.with_name(checkpoint.stem + ".done.json")
+
+
+def _load_api_checkpoint(path: Path) -> tuple[list[MediaRecord], set[str]]:
+    media: list[MediaRecord] = []
+    if path.exists():
+        media = load_media_csv(path)
+    done: set[str] = set()
+    done_path = _api_done_path(path)
+    if done_path.exists():
+        payload = json.loads(done_path.read_text(encoding="utf-8"))
+        done = {str(name) for name in payload.get("completed", [])}
+    return media, done
+
+
+def _save_api_checkpoint(
+    path: Path, media: list[MediaRecord], completed: set[str]
+) -> None:
+    write_media_csv(path, media)
+    done_path = _api_done_path(path)
+    done_path.parent.mkdir(parents=True, exist_ok=True)
+    done_path.write_text(
+        json.dumps({"completed": sorted(completed)}, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
 
 
 def _dest_path(output_dir: Path, scientific_name: str, catalog_id: str) -> Path:
@@ -105,11 +135,25 @@ def _maybe_fetch_apis(
     existing: list[MediaRecord],
 ) -> list[MediaRecord]:
     extra: list[MediaRecord] = []
+    completed: set[str] = set()
     if not (config.fetch_inat or config.fetch_gbif):
         return extra
 
+    checkpoint = config.api_checkpoint_path
+    if checkpoint is not None and not config.fresh_api_fetch:
+        extra, completed = _load_api_checkpoint(checkpoint)
+        if extra or completed:
+            logger.info(
+                "Resuming API checkpoint: %d media rows, %d species done (%s)",
+                len(extra),
+                len(completed),
+                checkpoint,
+            )
+    elif checkpoint is not None and config.fresh_api_fetch:
+        logger.info("Fresh API fetch requested; ignoring checkpoint at %s", checkpoint)
+
     coverage = coverage_from_records(
-        existing,
+        existing + extra,
         min_images=config.min_images,
         target_images=config.target_images,
     )
@@ -123,7 +167,13 @@ def _maybe_fetch_apis(
     else:
         targets = list(catalog_names)
 
-    logger.info("API fetch targets: %d species", len(targets))
+    pending = [name for name in targets if name not in completed]
+    logger.info(
+        "API fetch targets: %d species (%d pending, %d already done)",
+        len(targets),
+        len(pending),
+        len(targets) - len(pending),
+    )
     inat_client = (
         INaturalistClient(timeout_s=config.timeout_s, max_retries=config.max_retries)
         if config.fetch_inat
@@ -139,36 +189,60 @@ def _maybe_fetch_apis(
         else None
     )
 
-    for name in tqdm(targets, desc="api_fetch"):
+    failures = 0
+    for name in tqdm(pending, desc="api_fetch"):
         need = max(0, config.max_per_species - by_name.get(name, 0))
         if need <= 0:
+            completed.add(name)
+            if checkpoint is not None:
+                _save_api_checkpoint(checkpoint, extra, completed)
             continue
-        inat_quota, gbif_quota = _split_api_quotas(
-            need, config.fetch_inat, config.fetch_gbif
-        )
+
         inat_got = 0
         gbif_got = 0
+        try:
+            inat_quota, gbif_quota = _split_api_quotas(
+                need, config.fetch_inat, config.fetch_gbif
+            )
 
-        if inat_client is not None and inat_quota > 0:
-            fetched = inat_client.fetch_species_photos(name, max_records=inat_quota)
-            extra.extend(fetched)
-            inat_got = len(fetched)
+            if inat_client is not None and inat_quota > 0:
+                fetched = inat_client.fetch_species_photos(name, max_records=inat_quota)
+                extra.extend(fetched)
+                inat_got = len(fetched)
 
-        # GBIF gets its share plus any iNat shortfall.
-        gbif_need = gbif_quota + max(0, inat_quota - inat_got)
-        if gbif_client is not None and gbif_need > 0:
-            fetched = gbif_client.fetch_species_photos(name, max_records=gbif_need)
-            extra.extend(fetched)
-            gbif_got = len(fetched)
+            # GBIF gets its share plus any iNat shortfall.
+            gbif_need = gbif_quota + max(0, inat_quota - inat_got)
+            if gbif_client is not None and gbif_need > 0:
+                fetched = gbif_client.fetch_species_photos(name, max_records=gbif_need)
+                extra.extend(fetched)
+                gbif_got = len(fetched)
 
-        # If GBIF fell short and iNat still has budget room, top up iNat.
-        remaining = need - inat_got - gbif_got
-        if inat_client is not None and remaining > 0 and inat_got < need:
-            fetched = inat_client.fetch_species_photos(name, max_records=remaining)
-            extra.extend(fetched)
-            inat_got += len(fetched)
+            # If GBIF fell short and iNat still has budget room, top up iNat.
+            remaining = need - inat_got - gbif_got
+            if inat_client is not None and remaining > 0 and inat_got < need:
+                fetched = inat_client.fetch_species_photos(name, max_records=remaining)
+                extra.extend(fetched)
+                inat_got += len(fetched)
 
-        by_name[name] = by_name.get(name, 0) + inat_got + gbif_got
+            by_name[name] = by_name.get(name, 0) + inat_got + gbif_got
+            completed.add(name)
+        except Exception as exc:  # noqa: BLE001
+            failures += 1
+            by_name[name] = by_name.get(name, 0) + inat_got + gbif_got
+            logger.warning(
+                "API fetch failed for %s (will retry next run): %s", name, exc
+            )
+        finally:
+            if checkpoint is not None:
+                _save_api_checkpoint(checkpoint, extra, completed)
+
+    if failures:
+        logger.warning(
+            "API fetch finished with %d species failures; re-run to resume them",
+            failures,
+        )
+    elif checkpoint is not None:
+        logger.info("API checkpoint saved: %s (%d media)", checkpoint, len(extra))
 
     return extra
 

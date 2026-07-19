@@ -5,9 +5,8 @@ from __future__ import annotations
 import time
 from typing import Iterable
 
-import httpx
-
 from pipelines.shared.csv_manifest import MediaRecord
+from pipelines.shared.http_retry import get_json
 from pipelines.shared.licenses import is_license_allowed
 from pipelines.shared.taxonomy import normalize_scientific_name
 
@@ -24,29 +23,22 @@ class INaturalistClient:
     def __init__(
         self,
         timeout_s: float = 60.0,
-        max_retries: int = 3,
-        sleep_s: float = 0.35,
+        max_retries: int = 8,
+        sleep_s: float = 0.5,
     ) -> None:
         self.timeout_s = timeout_s
         self.max_retries = max_retries
         self.sleep_s = sleep_s
 
     def _get(self, path: str, params: dict) -> dict:
-        last_error: Exception | None = None
-        for attempt in range(1, self.max_retries + 1):
-            try:
-                with httpx.Client(
-                    headers=DEFAULT_HEADERS,
-                    timeout=self.timeout_s,
-                    follow_redirects=True,
-                ) as client:
-                    response = client.get(f"{INAT_API}{path}", params=params)
-                    response.raise_for_status()
-                    return response.json()
-            except Exception as exc:  # noqa: BLE001
-                last_error = exc
-                time.sleep(min(2**attempt, 8))
-        raise RuntimeError(f"iNaturalist request failed: {last_error}")
+        return get_json(
+            f"{INAT_API}{path}",
+            params=params,
+            headers=DEFAULT_HEADERS,
+            timeout_s=self.timeout_s,
+            max_retries=self.max_retries,
+            label="iNaturalist",
+        )
 
     def fetch_species_photos(
         self,

@@ -52,7 +52,12 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--workers", type=int, default=8)
     p.add_argument("--no-skip-existing", action="store_true")
     p.add_argument("--timeout", type=float, default=60.0)
-    p.add_argument("--retries", type=int, default=3)
+    p.add_argument(
+        "--retries",
+        type=int,
+        default=8,
+        help="HTTP retries per request (longer backoff on 429; default: 8)",
+    )
     p.add_argument(
         "--max-per-species",
         type=int,
@@ -99,6 +104,20 @@ def build_parser() -> argparse.ArgumentParser:
         default=5,
         help="Max aHash Hamming distance to treat two downloads as near-duplicates",
     )
+    p.add_argument(
+        "--api-checkpoint",
+        type=str,
+        default=str(paths.api_fetch_checkpoint),
+        help=(
+            "CSV checkpoint for API-discovered media "
+            "(resume on re-run; companion .done.json tracks finished species)"
+        ),
+    )
+    p.add_argument(
+        "--fresh-api-fetch",
+        action="store_true",
+        help="Ignore existing API checkpoint and start api_fetch from scratch",
+    )
     return p
 
 
@@ -136,6 +155,8 @@ def main(argv: list[str] | None = None) -> None:
         fetch_only_below_target=not args.fetch_all_species,
         gbif_country=args.gbif_country,
         perceptual_max_hamming=args.perceptual_max_hamming,
+        api_checkpoint_path=Path(args.api_checkpoint),
+        fresh_api_fetch=args.fresh_api_fetch,
     )
     run_download(config)
 

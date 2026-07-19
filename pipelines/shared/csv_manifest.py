@@ -321,6 +321,19 @@ def merge_media_records(records: list[MediaRecord]) -> list[MediaRecord]:
     return merged
 
 
+MEDIA_RECORD_FIELDS = [f.name for f in fields(MediaRecord)]
+
+
+def write_media_csv(path: Path, records: list[MediaRecord]) -> None:
+    """Persist MediaRecords in the generic schema ``load_media_csv`` can reload."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as fh:
+        writer = csv.DictWriter(fh, fieldnames=MEDIA_RECORD_FIELDS, extrasaction="ignore")
+        writer.writeheader()
+        for record in records:
+            writer.writerow(asdict(record))
+
+
 def write_manifest(path: Path, entries: list[ManifestEntry]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as fh:
