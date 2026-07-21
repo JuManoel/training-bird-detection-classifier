@@ -30,7 +30,6 @@ class DownloadConfig:
     fetch_gbif: bool = True
     fetch_only_below_target: bool = True
     gbif_country: str | None = None
-    perceptual_max_hamming: int = 5
     api_checkpoint_path: Path | None = None
     fresh_api_fetch: bool = False
 

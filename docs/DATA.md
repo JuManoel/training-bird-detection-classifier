@@ -43,8 +43,7 @@ Rules:
 Coverage / dedupe reports:
 
 - `artifacts/coverage.json` + `artifacts/coverage.csv` (download-time advisory)
-- `artifacts/download_duplicates.csv`
-- `artifacts/dataset/classify/crop_duplicates.csv`
+- `artifacts/dataset/classify/crop_duplicates.csv` (post-extract crop dedupe)
 - `artifacts/dataset/classify/extract_stats.json`
 
 ## Artifacts layout
@@ -54,7 +53,6 @@ artifacts/
   images/raw/{Scientific_Name}/{catalog_id}.jpg
   manifest.csv                 # rich metadata (source, license, hash, …)
   coverage.json
-  download_duplicates.csv
   dataset/
     detect/                    # single-class bird YOLO dataset
       images/{train,val}/

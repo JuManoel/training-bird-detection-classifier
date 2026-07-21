@@ -99,12 +99,6 @@ def build_parser() -> argparse.ArgumentParser:
         help="Optional GBIF country filter (e.g. CO). Default: no geographic filter",
     )
     p.add_argument(
-        "--perceptual-max-hamming",
-        type=int,
-        default=5,
-        help="Max aHash Hamming distance to treat two downloads as near-duplicates",
-    )
-    p.add_argument(
         "--api-checkpoint",
         type=str,
         default=str(paths.api_fetch_checkpoint),
@@ -154,7 +148,6 @@ def main(argv: list[str] | None = None) -> None:
         fetch_gbif=not args.no_fetch_gbif,
         fetch_only_below_target=not args.fetch_all_species,
         gbif_country=args.gbif_country,
-        perceptual_max_hamming=args.perceptual_max_hamming,
         api_checkpoint_path=Path(args.api_checkpoint),
         fresh_api_fetch=args.fresh_api_fetch,
     )

@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import csv
 import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
@@ -26,7 +25,6 @@ from pipelines.shared.csv_manifest import (
 )
 from pipelines.shared.dedupe import (
     cap_per_species,
-    dedupe_by_content,
     dedupe_media_records,
     file_sha256,
 )
@@ -247,34 +245,6 @@ def _maybe_fetch_apis(
     return extra
 
 
-def _write_duplicate_report(path: Path, drops) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8", newline="") as fh:
-        writer = csv.DictWriter(
-            fh,
-            fieldnames=[
-                "dropped_catalog_id",
-                "kept_catalog_id",
-                "reason",
-                "distance",
-                "dropped_path",
-                "kept_path",
-            ],
-        )
-        writer.writeheader()
-        for drop in drops:
-            writer.writerow(
-                {
-                    "dropped_catalog_id": drop.dropped.catalog_id,
-                    "kept_catalog_id": drop.kept.catalog_id,
-                    "reason": drop.reason,
-                    "distance": drop.distance if drop.distance is not None else "",
-                    "dropped_path": drop.dropped.image_path,
-                    "kept_path": drop.kept.image_path,
-                }
-            )
-
-
 def run_download(config: DownloadConfig) -> list[ManifestEntry]:
     catalog = load_or_build_catalog(config.catalog_path, config.species_path)
     resolve = catalog.resolve
@@ -345,18 +315,10 @@ def run_download(config: DownloadConfig) -> list[ManifestEntry]:
                 )
             )
 
-    dedupe = dedupe_by_content(
-        entries,
-        path_of=lambda e: Path(e.image_path),
-        max_hamming=config.perceptual_max_hamming,
-    )
-    deduped_entries = dedupe.kept
-    dup_report = config.manifest_path.parent / "download_duplicates.csv"
-    _write_duplicate_report(dup_report, dedupe.dropped)
-
-    write_manifest(config.manifest_path, deduped_entries)
+    # Content/perceptual dedupe runs later in avesia-extract (on frames + crops).
+    write_manifest(config.manifest_path, entries)
     cov = coverage_from_records(
-        deduped_entries,
+        entries,
         min_images=config.min_images,
         target_images=config.target_images,
     )
@@ -364,15 +326,13 @@ def run_download(config: DownloadConfig) -> list[ManifestEntry]:
     included = sum(1 for row in cov if row.included)
     logger.info(
         "Download done: ok=%d skipped=%d errors=%d kept=%d "
-        "exact_dupes=%d perceptual_dupes=%d species_included=%d/%d manifest=%s",
+        "species_included=%d/%d manifest=%s",
         ok,
         skipped,
         errors,
-        len(deduped_entries),
-        dedupe.exact_duplicates,
-        dedupe.perceptual_duplicates,
+        len(entries),
         included,
         len(cov),
         config.manifest_path,
     )
-    return deduped_entries
+    return entries
