@@ -15,6 +15,3 @@ artifacts/
 *.engine
 *.onnx
 uv.lock
-
-# Local/large data manifests (do not commit)
-manifest.csv
