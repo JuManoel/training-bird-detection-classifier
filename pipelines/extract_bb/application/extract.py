@@ -16,10 +16,7 @@ from pipelines.extract_bb.infrastructure import YoloBirdDetector
 from pipelines.shared.catalog import load_or_build_catalog
 from pipelines.shared.crop import crop_bird_to_square
 from pipelines.shared.csv_manifest import ManifestEntry, read_manifest, write_manifest
-from pipelines.shared.dedupe import (
-    cap_items_per_species,
-    dedupe_by_content,
-)
+from pipelines.shared.dedupe import cap_items_per_species
 from pipelines.shared.logging_utils import setup_logging
 from pipelines.shared.split import stratified_group_split
 from pipelines.shared.taxonomy import normalize_scientific_name, species_folder_name
@@ -43,10 +40,6 @@ class _StagedSample:
     box_h: float
     box_index: int
     source_key: str
-
-    @property
-    def crop_id(self) -> str:
-        return f"{self.entry.catalog_id}:b{self.box_index}"
 
 
 def _write_resized(src: Path, dst: Path, imgsz: int, quality: int) -> None:
@@ -93,36 +86,6 @@ def _reset_split_dirs(root: Path, splits: tuple[str, ...] = ("train", "val")) ->
         path.mkdir(parents=True, exist_ok=True)
 
 
-def _write_duplicate_report(path: Path, drops) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8", newline="") as fh:
-        writer = csv.DictWriter(
-            fh,
-            fieldnames=[
-                "dropped_crop_id",
-                "kept_crop_id",
-                "scientific_name",
-                "reason",
-                "distance",
-                "dropped_path",
-                "kept_path",
-            ],
-        )
-        writer.writeheader()
-        for drop in drops:
-            writer.writerow(
-                {
-                    "dropped_crop_id": drop.dropped.crop_id,
-                    "kept_crop_id": drop.kept.crop_id,
-                    "scientific_name": drop.dropped.entry.scientific_name,
-                    "reason": drop.reason,
-                    "distance": drop.distance if drop.distance is not None else "",
-                    "dropped_path": str(drop.dropped.crop_path),
-                    "kept_path": str(drop.kept.crop_path),
-                }
-            )
-
-
 def run_extract(config: ExtractConfig) -> dict:
     catalog = load_or_build_catalog(config.catalog_path, config.species_path)
     resolve = catalog.resolve
@@ -141,20 +104,6 @@ def run_extract(config: ExtractConfig) -> dict:
         e.scientific_name = canon
         entries.append(e)
     logger.info("Manifest entries usable: %d", len(entries))
-
-    # Exact + perceptual dedupe on full-frame downloads before YOLO.
-    frame_dedupe = dedupe_by_content(
-        entries,
-        path_of=lambda e: Path(e.image_path),
-        max_hamming=config.perceptual_max_hamming,
-    )
-    entries = frame_dedupe.kept
-    logger.info(
-        "Frame dedupe: kept=%d exact=%d perceptual=%d",
-        len(entries),
-        frame_dedupe.exact_duplicates,
-        frame_dedupe.perceptual_duplicates,
-    )
 
     detect_images = config.detect_root / "images"
     detect_labels = config.detect_root / "labels"
@@ -268,19 +217,6 @@ def run_extract(config: ExtractConfig) -> dict:
 
     if not staged:
         raise RuntimeError("No images produced bird boxes; cannot build dataset")
-
-    # Crop-level exact + perceptual dedupe. Crops from the same source photo
-    # are never collapsed against each other (distinct birds in one frame).
-    crop_dedupe = dedupe_by_content(
-        staged,
-        path_of=lambda s: s.crop_path,
-        group_key=lambda s: s.source_key,
-        max_hamming=config.perceptual_max_hamming,
-    )
-    staged = crop_dedupe.kept
-    _write_duplicate_report(
-        config.classify_root / "crop_duplicates.csv", crop_dedupe.dropped
-    )
 
     staged = cap_items_per_species(
         staged,
@@ -450,10 +386,6 @@ def run_extract(config: ExtractConfig) -> dict:
         "min_images": config.min_images,
         "target_images": config.target_images,
         "max_per_species": config.max_per_species,
-        "frame_exact_duplicates": frame_dedupe.exact_duplicates,
-        "frame_perceptual_duplicates": frame_dedupe.perceptual_duplicates,
-        "crop_exact_duplicates": crop_dedupe.exact_duplicates,
-        "crop_perceptual_duplicates": crop_dedupe.perceptual_duplicates,
         "species": species_stats,
         "per_species_final": dict(final_counts),
     }

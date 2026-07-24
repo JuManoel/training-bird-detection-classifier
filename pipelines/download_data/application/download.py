@@ -315,7 +315,7 @@ def run_download(config: DownloadConfig) -> list[ManifestEntry]:
                 )
             )
 
-    # Content/perceptual dedupe runs later in avesia-extract (on frames + crops).
+    # Content/perceptual image dedupe is intentionally skipped in extract (too heavy).
     write_manifest(config.manifest_path, entries)
     cov = coverage_from_records(
         entries,

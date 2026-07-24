@@ -16,7 +16,7 @@ def build_parser() -> argparse.ArgumentParser:
         description=(
             "Detect birds with YOLO26, build a 1-class detect dataset, "
             "and write 256×256 classification crops. Thresholds 125/500/1000 "
-            "apply to unique post-detection crops (each detected bird counts)."
+            "apply to post-detection crops (each detected bird counts)."
         )
     )
     p.add_argument("--manifest", type=str, default=str(paths.manifest))
@@ -48,25 +48,19 @@ def build_parser() -> argparse.ArgumentParser:
         "--min-images",
         type=int,
         default=125,
-        help="Drop species with fewer than this many unique crops after detection",
+        help="Drop species with fewer than this many crops after detection",
     )
     p.add_argument(
         "--target-images",
         type=int,
         default=500,
-        help="Coverage target reported per species (unique crops)",
+        help="Coverage target reported per species",
     )
     p.add_argument(
         "--max-per-species",
         type=int,
         default=1000,
-        help="Hard cap of unique crops per species after detection/dedupe",
-    )
-    p.add_argument(
-        "--perceptual-max-hamming",
-        type=int,
-        default=5,
-        help="Max aHash Hamming distance to treat two crops as near-duplicates",
+        help="Hard cap of crops per species after detection",
     )
     return p
 
@@ -92,7 +86,6 @@ def main(argv: list[str] | None = None) -> None:
         min_images=args.min_images,
         target_images=args.target_images,
         max_per_species=args.max_per_species,
-        perceptual_max_hamming=args.perceptual_max_hamming,
     )
     run_extract(config)
 
